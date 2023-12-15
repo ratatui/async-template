@@ -1,5 +1,11 @@
 # async-template
 
+DEPRECATED: Use <https://github.com/ratatui-org/templates> instead
+
+```shell
+cargo generate ratatui-org/templates async
+```
+
 ![](https://user-images.githubusercontent.com/1813121/277114001-0d25a09c-f24e-4ffc-8763-cd258828cec0.gif)
 
 ### Features
@@ -23,9 +29,9 @@
 You can start by using `cargo-generate`:
 
 ```bash
-$ cargo install cargo-generate
-$ cargo generate --git https://github.com/ratatui-org/async-template --name ratatui-hello-world
-$ cd ratatui-hello-world
+cargo install cargo-generate
+cargo generate --git https://github.com/ratatui-org/async-template --name ratatui-hello-world
+cd ratatui-hello-world
 ```
 
 You can also use a
@@ -41,7 +47,7 @@ $ cargo generate --path . --template-values-file .github/workflows/template.toml
 **Run**
 
 ```bash
-$ cargo run # Press `q` to exit
+cargo run # Press `q` to exit
 ```
 
 **Show `help`**
