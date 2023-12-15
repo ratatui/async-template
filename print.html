@@ -1,0 +1,2659 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>async-template</title>
+        <meta name="robots" content="noindex" />
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="./mdbook-admonish.css">
+        <link rel="stylesheet" href="./theme/catppuccin.css">
+        <link rel="stylesheet" href="./theme/catppuccin-highlight.css">
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Home</a></li><li class="chapter-item expanded "><a href="00-structure.html"><strong aria-hidden="true">2.</strong> Tutorial</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="01-structure.html"><strong aria-hidden="true">2.1.</strong> main.rs</a></li><li class="chapter-item expanded "><a href="02-structure.html"><strong aria-hidden="true">2.2.</strong> tui.rs</a></li><li class="chapter-item expanded "><a href="03-structure.html"><strong aria-hidden="true">2.3.</strong> action.rs</a></li><li class="chapter-item expanded "><a href="04-structure.html"><strong aria-hidden="true">2.4.</strong> app.rs</a></li><li class="chapter-item expanded "><a href="05-structure.html"><strong aria-hidden="true">2.5.</strong> components.rs</a></li><li class="chapter-item expanded "><a href="06-structure.html"><strong aria-hidden="true">2.6.</strong> components/home.rs</a></li><li class="chapter-item expanded "><a href="07-structure.html"><strong aria-hidden="true">2.7.</strong> config.rs</a></li><li class="chapter-item expanded "><a href="08-structure.html"><strong aria-hidden="true">2.8.</strong> utils.rs</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="latte">Latte</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="frappe">Frappé</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="macchiato">Macchiato</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mocha">Mocha</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">async-template</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/ratatui-org/async-template" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="home"><a class="header" href="#home">Home</a></h1>
+<h1 id="async-template"><a class="header" href="#async-template">async-template</a></h1>
+<p>DEPRECATED: Use <a href="https://github.com/ratatui-org/templates">https://github.com/ratatui-org/templates</a> instead</p>
+<pre><code class="language-shell">cargo generate ratatui-org/templates async
+</code></pre>
+<p><img src="https://user-images.githubusercontent.com/1813121/277114001-0d25a09c-f24e-4ffc-8763-cd258828cec0.gif" alt="" /></p>
+<h3 id="features"><a class="header" href="#features">Features</a></h3>
+<ul>
+<li>Uses <a href="https://tokio.rs/">tokio</a> for async events
+<ul>
+<li>Start and stop key events to shell out to another TUI like vim</li>
+<li>Supports suspend signal hooks</li>
+</ul>
+</li>
+<li>Logs using <a href="https://github.com/tokio-rs/tracing">tracing</a></li>
+<li><a href="https://github.com/mitsuhiko/better-panic">better-panic</a></li>
+<li><a href="https://github.com/eyre/color-eyre">color-eyre</a></li>
+<li><a href="https://github.com/rust-cli/human-panic">human-panic</a></li>
+<li>Clap for command line argument parsing</li>
+<li><code>Component</code> trait with
+<a href="https://github.com/ratatui-org/async-template/blob/main/template/src/components/home.rs"><code>Home</code></a>
+and
+<a href="https://github.com/ratatui-org/async-template/blob/main/template/src/components/fps.rs"><code>Fps</code></a>
+components as examples</li>
+</ul>
+<h3 id="usage"><a class="header" href="#usage">Usage</a></h3>
+<p>You can start by using <code>cargo-generate</code>:</p>
+<pre><code class="language-bash">cargo install cargo-generate
+cargo generate --git https://github.com/ratatui-org/async-template --name ratatui-hello-world
+cd ratatui-hello-world
+</code></pre>
+<p>You can also use a
+<a href="https://github.com/ratatui-org/async-template/blob/main/.github/workflows/template.toml"><code>template.toml</code></a>
+file to skip the prompts:</p>
+<pre><code class="language-bash">$ cargo generate --git https://github.com/ratatui-org/async-template --template-values-file .github/workflows/template.toml --name ratatui-hello-world
+# OR generate from local clone
+$ cargo generate --path . --template-values-file .github/workflows/template.toml --name ratatui-hello-world
+</code></pre>
+<p><strong>Run</strong></p>
+<pre><code class="language-bash">cargo run # Press `q` to exit
+</code></pre>
+<p><strong>Show <code>help</code></strong></p>
+<pre><code class="language-bash">$ cargo run -- --help
+Hello World project using ratatui-template
+
+Usage: ratatui-hello-world [OPTIONS]
+
+Options:
+  -t, --tick-rate &lt;FLOAT&gt;   Tick rate, i.e. number of ticks per second [default: 1]
+  -f, --frame-rate &lt;FLOAT&gt;  Frame rate, i.e. number of frames per second [default: 60]
+  -h, --help                Print help
+  -V, --version             Print version
+</code></pre>
+<p><strong>Show <code>version</code></strong></p>
+<p>Without direnv variables:</p>
+<pre><code class="language-bash">$ cargo run -- --version
+    Finished dev [unoptimized + debuginfo] target(s) in 0.07s
+     Running `target/debug/ratatui-hello-world --version`
+ratatui-hello-world v0.1.0-47-eb0a31a
+
+Authors: Dheepak Krishnamurthy
+
+Config directory: /Users/kd/Library/Application Support/com.kdheepak.ratatui-hello-world
+Data directory: /Users/kd/Library/Application Support/com.kdheepak.ratatui-hello-world
+</code></pre>
+<p>With direnv variables:</p>
+<pre><code class="language-bash">$ direnv allow
+direnv: loading ~/gitrepos/async-template/ratatui-hello-world/.envrc
+direnv: export +RATATUI_HELLO_WORLD_CONFIG +RATATUI_HELLO_WORLD_DATA +RATATUI_HELLO_WORLD_LOG_LEVEL
+
+$ # OR
+
+$ export RATATUI_HELLO_WORLD_CONFIG=`pwd`/.config
+$ export RATATUI_HELLO_WORLD_DATA=`pwd`/.data
+$ export RATATUI_HELLO_WORLD_LOG_LEVEL=debug
+
+$ cargo run -- --version
+    Finished dev [unoptimized + debuginfo] target(s) in 0.07s
+     Running `target/debug/ratatui-hello-world --version`
+ratatui-hello-world v0.1.0-47-eb0a31a
+
+Authors: Dheepak Krishnamurthy
+
+Config directory: /Users/kd/gitrepos/async-template/ratatui-hello-world/.config
+Data directory: /Users/kd/gitrepos/async-template/ratatui-hello-world/.data
+</code></pre>
+<h3 id="documentation"><a class="header" href="#documentation">Documentation</a></h3>
+<p>Read documentation on design decisions in the template here:
+<a href="https://ratatui-org.github.io/async-template/">https://ratatui-org.github.io/async-template/</a></p>
+<h3 id="counter--text-input-demo"><a class="header" href="#counter--text-input-demo">Counter + Text Input Demo</a></h3>
+<p>This repo contains a <code>ratatui-counter</code> folder that is a working demo as an example. If you wish to
+run a demo without using <code>cargo generate</code>, you can run the counter + text input demo by following
+the instructions below:</p>
+<pre><code class="language-bash">git clone https://github.com/ratatui-org/async-template
+cd async-template
+cd ratatui-counter # counter + text input demo
+
+export RATATUI_COUNTER_CONFIG=`pwd`/.config
+export RATATUI_COUNTER_DATA=`pwd`/.data
+export RATATUI_COUNTER_LOG_LEVEL=debug
+# OR
+direnv allow
+
+cargo run
+</code></pre>
+<p>You should see a demo like this:</p>
+<p><img src="https://github.com/ratatui-org/async-template/assets/1813121/057a0fe9-9f6d-4f8c-963c-ca2725721bdd" alt="" /></p>
+<h2 id="background"><a class="header" href="#background">Background</a></h2>
+<p><a href="https://github.com/ratatui-org/ratatui"><code>ratatui</code></a> is a Rust library to build rich terminal user
+interfaces (TUIs) and dashboards. It is a community fork of the original
+<a href="https://github.com/fdehau/tui-rs"><code>tui-rs</code></a> created to maintain and improve the project.</p>
+<p>The <a href="https://github.com/ratatui-org/async-template">source code of this project</a> is an opinionated
+template for getting up and running with <code>ratatui</code>. You can pick and choose the pieces of this
+<code>async-template</code> to suit your needs and sensibilities. This rest of this documentation is a
+walk-through of why the code is structured the way it is, so that you are aided in modifying it as
+you require.</p>
+<p><code>ratatui</code> is based on the principle of immediate rendering with intermediate buffers. This means
+that at each new frame you have to build all widgets that are supposed to be part of the UI. In
+short, the <code>ratatui</code> library is largely handles just drawing to the terminal.</p>
+<p>Additionally, the library does not provide any input handling nor any event system. The
+responsibility of getting keyboard input events, modifying the state of your application based on
+those events and figuring out which widgets best reflect the view of the state of your application
+is on you.</p>
+<p>The <code>ratatui-org</code> project has added a template that covers the basics, and you find that here:
+<a href="https://github.com/ratatui-org/rust-tui-template">https://github.com/ratatui-org/rust-tui-template</a>.</p>
+<p>I wanted to take another stab at a template, one that uses <code>tokio</code> and organizes the code a little
+differently. This is an opinionated view on how to organize a <code>ratatui</code> project.</p>
+<div id="admonition-info" class="admonition info">
+<div class="admonition-title">
+<p>Info</p>
+<p><a class="admonition-anchor-link" href="index.html#admonition-info"></a></p>
+</div>
+<div>
+<p>Since <code>ratatui</code> is a immediate mode rendering based library, there are <em>multiple</em> ways to organize your code, and there’s no real “right” answer.
+Choose whatever works best for you!</p>
+</div>
+</div>
+<p>This project also adds commonly used dependencies like logging, command line arguments,
+configuration options, etc.</p>
+<p>As part of this documentation, we’ll walk through some of the different ways you may choose to
+organize your code and project in order to build a functioning terminal user interface. You can pick
+and choose the parts you like.</p>
+<p>You may also want to check out the following links (roughly in order of increasing complexity):</p>
+<ul>
+<li><a href="https://github.com/ratatui-org/ratatui/tree/main/examples">https://github.com/ratatui-org/ratatui/tree/main/examples</a>: Simple one-off examples to illustrate
+various widgets and features in <code>ratatui</code>.</li>
+<li><a href="https://github.com/ratatui-org/rust-tui-template">https://github.com/ratatui-org/rust-tui-template</a>: Starter kit for using <code>ratatui</code></li>
+<li><a href="https://github.com/ratatui-org/ratatui-book/tree/main/ratatui-book-tutorial-project">https://github.com/ratatui-org/ratatui-book/tree/main/ratatui-book-tutorial-project</a>: Tutorial
+project that the user a simple interface to enter key-value pairs, which will printed in json.</li>
+<li><a href="https://github.com/ratatui-org/async-template">https://github.com/ratatui-org/async-template</a>: Async tokio crossterm based opinionated starter
+kit for using <code>ratatui</code>.</li>
+<li><a href="https://github.com/veeso/tui-realm/">https://github.com/veeso/tui-realm/</a>: A framework for <code>tui.rs</code> to simplify the implementation of
+terminal user interfaces adding the possibility to work with re-usable components with properties
+and states.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="structure-of-files"><a class="header" href="#structure-of-files">Structure of files</a></h1>
+<p>The rust files in the <code>async-template</code> project are organized as follows:</p>
+<pre><code class="language-bash">$ tree
+.
+├── build.rs
+└── src
+   ├── action.rs
+   ├── components
+   │  ├── app.rs
+   │  └── mod.rs
+   ├── config.rs
+   ├── main.rs
+   ├── runner.rs
+   ├── tui.rs
+   └── utils.rs
+</code></pre>
+<p>Once you have setup the project, you shouldn’t need to change the contents of anything outside of
+the <code>components</code> folder.</p>
+<p>Let’s discuss the contents of the files in the <code>src</code> folder first, how these contents of these files
+interact with each other and why they do what they are doing.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="mainrs"><a class="header" href="#mainrs"><code>main.rs</code></a></h1>
+<p>In this section, let’s just cover the contents of <code>main.rs</code>, <code>build.rs</code> and <code>utils.rs</code>.</p>
+<p>The <code>main.rs</code> file is the entry point of the application. Here’s the complete <code>main.rs</code> file:</p>
+<pre><code class="language-rust no_run noplayground">pub mod action;
+pub mod app;
+pub mod cli;
+pub mod components;
+pub mod config;
+pub mod tui;
+pub mod utils;
+
+use clap::Parser;
+use cli::Cli;
+use color_eyre::eyre::Result;
+
+use crate::{
+  app::App,
+  utils::{initialize_logging, initialize_panic_handler, version},
+};
+
+async fn tokio_main() -&gt; Result&lt;()&gt; {
+  initialize_logging()?;
+
+  initialize_panic_handler()?;
+
+  let args = Cli::parse();
+  let mut app = App::new(args.tick_rate, args.frame_rate)?;
+  app.run().await?;
+
+  Ok(())
+}
+
+#[tokio::main]
+async fn main() -&gt; Result&lt;()&gt; {
+  if let Err(e) = tokio_main().await {
+    eprintln!(&quot;{} error: Something went wrong&quot;, env!(&quot;CARGO_PKG_NAME&quot;));
+    Err(e)
+  } else {
+    Ok(())
+  }
+}</code></pre>
+<p>In essence, the <code>main</code> function creates an instance of <code>App</code> and calls <code>App.run()</code>, which runs
+the “<code>handle event</code> -&gt; <code>update state</code> -&gt; <code>draw</code>” loop. We will talk more about this in a later
+section.</p>
+<p>This <code>main.rs</code> file incorporates some key features that are not necessarily related to <code>ratatui</code>,
+but in my opinion, essential for any Terminal User Interface (TUI) program:</p>
+<ul>
+<li>Command Line Argument Parsing (<code>clap</code>)</li>
+<li>XDG Base Directory Specification</li>
+<li>Logging</li>
+<li>Panic Handler</li>
+</ul>
+<p>These are described in more detail in the <a href="./08-structure.html"><code>utils.rs</code> section</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="tuirs"><a class="header" href="#tuirs"><code>tui.rs</code></a></h1>
+<h2 id="terminal"><a class="header" href="#terminal">Terminal</a></h2>
+<p>In this section of the tutorial, we are going to discuss the basic components of the <code>Tui</code> struct.</p>
+<p>You’ll find most people setup and teardown of a terminal application using <code>crossterm</code> like so:</p>
+<pre><code class="language-rust">fn setup_terminal() -&gt; Result&lt;Terminal&lt;CrosstermBackend&lt;Stdout&gt;&gt;&gt; {
+  let mut stdout = io::stdout();
+  crossterm::terminal::enable_raw_mode()?;
+  crossterm::execute!(stdout, EnterAlternateScreen, EnableMouseCapture, HideCursor)?;
+  Terminal::new(CrosstermBackend::new(stdout))
+}
+
+fn teardown_terminal(terminal: &amp;mut Terminal&lt;CrosstermBackend&lt;Stdout&gt;&gt;) -&gt; Result&lt;()&gt; {
+  let mut stdout = io::stdout();
+  crossterm::terminal::disable_raw_mode()?;
+  crossterm::execute!(stdout, LeaveAlternateScreen, DisableMouseCapture, ShowCursor)?;
+  Ok(())
+}
+
+fn main() -&gt; Result&lt;()&gt; {
+  let mut terminal = setup_terminal()?;
+  run_app(&amp;mut terminal)?;
+  teardown_terminal(&amp;mut terminal)?;
+  Ok(())
+}</code></pre>
+<p>You can use <code>termion</code> or <code>termwiz</code> instead here, and you’ll have to change the implementation of
+<code>setup_terminal</code> and <code>teardown_terminal</code>.</p>
+<p>I personally like to use <code>crossterm</code> so that I can run the TUI on windows as well.</p>
+<div id="admonition-note" class="admonition note">
+<div class="admonition-title">
+<p>Note</p>
+<p><a class="admonition-anchor-link" href="02-structure.html#admonition-note"></a></p>
+</div>
+<div>
+<p>Terminals have two screen buffers for each window.
+The default screen buffer is what you are dropped into when you start up a terminal.
+The second screen buffer, called the alternate screen, is used for running interactive apps such as the <code>vim</code>, <code>less</code> etc.</p>
+<p>Here’s a 8 minute talk on Terminal User Interfaces I gave at JuliaCon2020: <a href="https://www.youtube.com/watch?v=-TASx67pphw">https://www.youtube.com/watch?v=-TASx67pphw</a> that might be worth watching for more information about how terminal user interfaces work.</p>
+</div>
+</div>
+<p>We can reorganize the setup and teardown functions into an <code>enter()</code> and <code>exit()</code> methods on a <code>Tui</code>
+struct.</p>
+<pre><code class="language-rust no_run noplayground">use color_eyre::eyre::{anyhow, Context, Result};
+use crossterm::{
+  cursor,
+  event::{DisableMouseCapture, EnableMouseCapture},
+  terminal::{EnterAlternateScreen, LeaveAlternateScreen},
+};
+use ratatui::backend::CrosstermBackend as Backend;
+use tokio::{
+  sync::{mpsc, Mutex},
+  task::JoinHandle,
+};
+
+pub type Frame&lt;'a&gt; = ratatui::Frame&lt;'a, Backend&lt;std::io::Stderr&gt;&gt;;
+
+pub struct Tui {
+  pub terminal: ratatui::Terminal&lt;Backend&lt;std::io::Stderr&gt;&gt;,
+}
+
+impl Tui {
+  pub fn new() -&gt; Result&lt;Self&gt; {
+    let terminal = ratatui::Terminal::new(Backend::new(std::io::stderr()))?;
+    Ok(Self { terminal })
+  }
+
+  pub fn enter(&amp;self) -&gt; Result&lt;()&gt; {
+    crossterm::terminal::enable_raw_mode()?;
+    crossterm::execute!(std::io::stderr(), EnterAlternateScreen, EnableMouseCapture, cursor::Hide)?;
+    Ok(())
+  }
+
+  pub fn exit(&amp;self) -&gt; Result&lt;()&gt; {
+    crossterm::execute!(std::io::stderr(), LeaveAlternateScreen, DisableMouseCapture, cursor::Show)?;
+    crossterm::terminal::disable_raw_mode()?;
+    Ok(())
+  }
+
+  pub fn suspend(&amp;self) -&gt; Result&lt;()&gt; {
+    self.exit()?;
+    #[cfg(not(windows))]
+    signal_hook::low_level::raise(signal_hook::consts::signal::SIGTSTP)?;
+    Ok(())
+  }
+
+  pub fn resume(&amp;self) -&gt; Result&lt;()&gt; {
+    self.enter()?;
+    Ok(())
+  }
+}</code></pre>
+<div id="admonition-note-1" class="admonition note">
+<div class="admonition-title">
+<p>Note</p>
+<p><a class="admonition-anchor-link" href="02-structure.html#admonition-note-1"></a></p>
+</div>
+<div>
+<p>This is the same <code>Tui</code> struct we used in <code>initialize_panic_handler()</code>. We call <code>Tui::exit()</code> before printing the stacktrace.</p>
+</div>
+</div>
+<p>Feel free to modify this as you need for use with <code>termion</code> or <code>wezterm</code>.</p>
+<p>The type alias to <code>Frame</code> is only to make the <code>components</code> folder easier to work with, and is not
+strictly required.</p>
+<h2 id="event"><a class="header" href="#event">Event</a></h2>
+<p>In it’s simplest form, most applications will have a <code>main</code> loop like this:</p>
+<pre><code class="language-rust">fn main() -&gt; Result&lt;()&gt; {
+  let mut app = App::new();
+
+  let mut t = Tui::new()?;
+
+  t.enter()?; // raw mode enabled
+
+  loop {
+
+    // get key event and update state
+    // ... Special handling to read key or mouse events required here
+
+    t.terminal.draw(|f| { // &lt;- `terminal.draw` is the only ratatui function here
+      ui(app, f) // render state to terminal
+    })?;
+
+  }
+
+  t.exit()?; // raw mode disabled
+
+  Ok(())
+}</code></pre>
+<div id="admonition-note-2" class="admonition note">
+<div class="admonition-title">
+<p>Note</p>
+<p><a class="admonition-anchor-link" href="02-structure.html#admonition-note-2"></a></p>
+</div>
+<div>
+<p>The <code>terminal.draw(|f| { ui(app, f); })</code> call is the only line in the code above
+that uses <code>ratatui</code> functionality.
+You can learn more about
+<a href="https://docs.rs/ratatui/latest/ratatui/terminal/struct.Terminal.html#method.draw"><code>draw</code> from the official documentation</a>.
+Essentially, <code>terminal.draw()</code> takes a callback that takes a
+<a href="https://docs.rs/ratatui/latest/ratatui/terminal/struct.Frame.html"><code>Frame</code></a> and expects
+the callback to render widgets to that frame, which is then drawn to the terminal
+using a double buffer technique.</p>
+</div>
+</div>
+<p>While we are in the “raw mode”, i.e. after we call <code>t.enter()</code>, any key presses in that terminal
+window are sent to <code>stdin</code>. We have to read these key presses from <code>stdin</code> if we want to act on
+them.</p>
+<p>There’s a number of different ways to do that. <code>crossterm</code> has a <code>event</code> module that implements
+features to read these key presses for us.</p>
+<p>Let’s assume we were building a simple “counter” application, that incremented a counter when we
+pressed <code>j</code> and decremented a counter when we pressed <code>k</code>.</p>
+<pre><code class="language-rust">fn main() -&gt; Result {
+  let mut app = App::new();
+
+  let mut t = Tui::new()?;
+
+  t.enter()?;
+
+  loop {
+    if crossterm::event::poll(Duration::from_millis(250))? {
+      if let Event::Key(key) = crossterm::event::read()? {
+        match key.code {
+          KeyCode::Char('j') =&gt; app.increment(),
+          KeyCode::Char('k') =&gt; app.decrement(),
+          KeyCode::Char('q') =&gt; break,
+          _ =&gt; (),
+        }
+      }
+    };
+
+    t.terminal.draw(|f| {
+      ui(app, f)
+    })?;
+  }
+
+  t.exit()?;
+
+  Ok(())
+}</code></pre>
+<p>This works perfectly fine, and a lot of small to medium size programs can get away with doing just
+that.</p>
+<p>However, this approach conflates the key input handling with app state updates, and does so in the
+“draw” loop. The practical issue with this approach is we block the draw loop for 250 ms waiting for
+a key press. This can have odd side effects, for example pressing an holding a key will result in
+faster draws to the terminal.</p>
+<p>In terms of architecture, the code could get complicated to reason about. For example, we may even
+want key presses to mean <em>different</em> things depending on the state of the app (when you are focused
+on an input field, you may want to enter the letter <code>&quot;j&quot;</code> into the text input field, but when
+focused on a list of items, you may want to scroll down the list.)</p>
+<p><img src="https://user-images.githubusercontent.com/1813121/254444604-de8cfcfa-eeec-417a-a8b0-92a7ccb5fcb5.gif" alt="Pressing j 3 times to increment counter and 3 times in the text field" /></p>
+<!--
+```
+Set Shell zsh
+Sleep 1s
+Hide
+Type "cargo run"
+Enter
+Sleep 1s
+Show
+Type "jjj"
+Sleep 5s
+Sleep 5s
+Type "/jjj"
+Sleep 5s
+Escape
+Type "q"
+```
+-->
+<p>We have to do a few different things set ourselves up, so let’s take things one step at a time.</p>
+<p>First, instead of polling, we are going to introduce channels to get the key presses asynchronously
+and send them over a channel. We will then receive on the channel in the <code>main</code> loop.</p>
+<p>There are two ways to do this. We can either use OS threads or “green” threads, i.e. tasks, i.e.
+rust’s <code>async</code>-<code>await</code> features + a future executor.</p>
+<p>Here’s example code of reading key presses asynchronously using <code>std::thread</code> and <code>tokio::task</code>.</p>
+<h2 id="stdthread"><a class="header" href="#stdthread"><code>std::thread</code></a></h2>
+<pre><code class="language-rust">enum Event {
+  Key(crossterm::event::KeyEvent)
+}
+
+struct EventHandler {
+  rx: std::sync::mpsc::Receiver&lt;Event&gt;,
+}
+
+impl EventHandler {
+  fn new() -&gt; Self {
+    let tick_rate = std::time::Duration::from_millis(250);
+    let (tx, rx) =  std::sync::mpsc::channel();
+    std::thread::spawn(move || {
+      loop {
+        if crossterm::event::poll(tick_rate)? {
+          match crossterm::event::read()? {
+            CrosstermEvent::Key(e) =&gt; tx.send(Event::Key(e)),
+            _ =&gt; unimplemented!(),
+          }?
+        }
+      }
+    })
+
+    EventHandler { rx }
+  }
+
+  fn next(&amp;self) -&gt; Result&lt;Event&gt; {
+    Ok(self.rx.recv()?)
+  }
+}</code></pre>
+<h2 id="tokiotask"><a class="header" href="#tokiotask"><code>tokio::task</code></a></h2>
+<pre><code class="language-rust">enum Event {
+  Key(crossterm::event::KeyEvent)
+}
+
+struct EventHandler {
+  rx: tokio::sync::mpsc::UnboundedReceiver&lt;Event&gt;,
+}
+
+impl EventHandler {
+  fn new() -&gt; Self {
+    let tick_rate = std::time::Duration::from_millis(250);
+    let (tx, mut rx) =  tokio::sync::mpsc::unbounded_channel();
+    tokio::spawn(async move {
+      loop {
+        if crossterm::event::poll(tick_rate)? {
+          match crossterm::event::read()? {
+            CrosstermEvent::Key(e) =&gt; tx.send(Event::Key(e)),
+            _ =&gt; unimplemented!(),
+          }?
+        }
+      }
+    })
+
+    EventHandler { rx }
+  }
+
+  async fn next(&amp;self) -&gt; Result&lt;Event&gt; {
+    Ok(self.rx.recv().await.ok()?)
+  }
+}</code></pre>
+<h2 id="diff"><a class="header" href="#diff"><code>diff</code></a></h2>
+<pre><code class="language-diff">  enum Event {
+    Key(crossterm::event::KeyEvent)
+  }
+
+  struct EventHandler {
+-   rx: std::sync::mpsc::Receiver&lt;Event&gt;,
++   rx: tokio::sync::mpsc::UnboundedReceiver&lt;Event&gt;,
+  }
+
+  impl EventHandler {
+    fn new() -&gt; Self {
+      let tick_rate = std::time::Duration::from_millis(250);
+-     let (tx, rx) =  std::sync::mpsc::channel();
++     let (tx, mut rx) =  tokio::sync::mpsc::unbounded_channel();
+-     std::thread::spawn(move || {
++     tokio::spawn(async move {
+        loop {
+          if crossterm::event::poll(tick_rate)? {
+            match crossterm::event::read()? {
+              CrosstermEvent::Key(e) =&gt; tx.send(Event::Key(e)),
+              _ =&gt; unimplemented!(),
+            }?
+          }
+        }
+      })
+
+      EventHandler { rx }
+    }
+
+-   fn next(&amp;self) -&gt; Result&lt;Event&gt; {
++   async fn next(&amp;self) -&gt; Result&lt;Event&gt; {
+-     Ok(self.rx.recv()?)
++     Ok(self.rx.recv().await.ok()?)
+    }
+  }
+</code></pre>
+<div id="admonition-warning" class="admonition warning">
+<div class="admonition-title">
+<p>Warning</p>
+<p><a class="admonition-anchor-link" href="02-structure.html#admonition-warning"></a></p>
+</div>
+<div>
+<p>A lot of examples out there in the wild might use the following code for sending key presses:</p>
+<pre><code class="language-rust">  CrosstermEvent::Key(e) =&gt; tx.send(Event::Key(e)),</code></pre>
+<p>However, on Windows, when using <code>Crossterm</code>, this will send the same <code>Event::Key(e)</code> twice; one for when you press the key, i.e. <code>KeyEventKind::Press</code> and one for when you release the key, i.e. <code>KeyEventKind::Release</code>.
+On <code>MacOS</code> and <code>Linux</code> only <code>KeyEventKind::Press</code> kinds of <code>key</code> event is generated.</p>
+<p>To make the code work as expected across all platforms, you can do this instead:</p>
+<pre><code class="language-rust">  CrosstermEvent::Key(key) =&gt; {
+    if key.kind == KeyEventKind::Press {
+      event_tx.send(Event::Key(key)).unwrap();
+    }
+  },</code></pre>
+</div>
+</div>
+<p>Tokio is an asynchronous runtime for the Rust programming language. It is one of the more popular
+runtimes for asynchronous programming in rust. You can learn more about here
+<a href="https://tokio.rs/tokio/tutorial">https://tokio.rs/tokio/tutorial</a>. For the rest of the tutorial here, we are going to assume we want
+to use tokio. I highly recommend you read the official <code>tokio</code> documentation.</p>
+<p>If we use <code>tokio</code>, receiving a event requires <code>.await</code>. So our <code>main</code> loop now looks like this:</p>
+<pre><code class="language-rust">#[tokio::main]
+async fn main() -&gt; {
+  let mut app = App::new();
+
+  let events = EventHandler::new();
+
+  let mut t = Tui::new()?;
+
+  t.enter()?;
+
+  loop {
+    if let Event::Key(key) = events.next().await? {
+      match key.code {
+        KeyCode::Char('j') =&gt; app.increment(),
+        KeyCode::Char('k') =&gt; app.decrement(),
+        KeyCode::Char('q') =&gt; break,
+        _ =&gt; (),
+      }
+    }
+
+    t.terminal.draw(|f| {
+      ui(app, f)
+    })?;
+  }
+
+  t.exit()?;
+
+  Ok(())
+}</code></pre>
+<h3 id="additional-improvements"><a class="header" href="#additional-improvements">Additional improvements</a></h3>
+<p>We are going to modify our <code>EventHandler</code> to handle a <code>AppTick</code> event. We want the <code>Event::AppTick</code>
+to be sent at regular intervals. We are also going to want to use a <code>CancellationToken</code> to stop the
+tokio task on request.</p>
+<p><a href="https://tokio.rs/tokio/tutorial/select"><code>tokio</code>’s <code>select!</code> macro</a> allows us to wait on multiple
+<code>async</code> computations and returns when a single computation completes.</p>
+<p>Here’s what the completed <code>EventHandler</code> code now looks like:</p>
+<pre><code class="language-rust no_run noplayground">use color_eyre::eyre::Result;
+use crossterm::{
+  cursor,
+  event::{Event as CrosstermEvent, KeyEvent, KeyEventKind, MouseEvent},
+};
+use futures::{FutureExt, StreamExt};
+use tokio::{
+  sync::{mpsc, oneshot},
+  task::JoinHandle,
+};
+
+#[derive(Clone, Copy, Debug)]
+pub enum Event {
+  Error,
+  AppTick,
+  Key(KeyEvent),
+}
+
+#[derive(Debug)]
+pub struct EventHandler {
+  _tx: mpsc::UnboundedSender&lt;Event&gt;,
+  rx: mpsc::UnboundedReceiver&lt;Event&gt;,
+  task: Option&lt;JoinHandle&lt;()&gt;&gt;,
+  stop_cancellation_token: CancellationToken,
+}
+
+impl EventHandler {
+  pub fn new(tick_rate: u64) -&gt; Self {
+    let tick_rate = std::time::Duration::from_millis(tick_rate);
+
+    let (tx, rx) = mpsc::unbounded_channel();
+    let _tx = tx.clone();
+
+    let stop_cancellation_token = CancellationToken::new();
+    let _stop_cancellation_token = stop_cancellation_token.clone();
+
+    let task = tokio::spawn(async move {
+      let mut reader = crossterm::event::EventStream::new();
+      let mut interval = tokio::time::interval(tick_rate);
+      loop {
+        let delay = interval.tick();
+        let crossterm_event = reader.next().fuse();
+        tokio::select! {
+          _ = _stop_cancellation_token.cancelled() =&gt; {
+            break;
+          }
+          maybe_event = crossterm_event =&gt; {
+            match maybe_event {
+              Some(Ok(evt)) =&gt; {
+                match evt {
+                  CrosstermEvent::Key(key) =&gt; {
+                    if key.kind == KeyEventKind::Press {
+                      tx.send(Event::Key(key)).unwrap();
+                    }
+                  },
+                  _ =&gt; {},
+                }
+              }
+              Some(Err(_)) =&gt; {
+                tx.send(Event::Error).unwrap();
+              }
+              None =&gt; {},
+            }
+          },
+          _ = delay =&gt; {
+              tx.send(Event::AppTick).unwrap();
+          },
+        }
+      }
+    });
+
+    Self { _tx, rx, task: Some(task), stop_cancellation_token }
+  }
+
+  pub async fn next(&amp;mut self) -&gt; Option&lt;Event&gt; {
+    self.rx.recv().await
+  }
+
+  pub async fn stop(&amp;mut self) -&gt; Result&lt;()&gt; {
+    self.stop_cancellation_token.cancel();
+    if let Some(handle) = self.task.take() {
+      handle.await.unwrap();
+    }
+    Ok(())
+  }
+}</code></pre>
+<div id="admonition-note-3" class="admonition note">
+<div class="admonition-title">
+<p>Note</p>
+<p><a class="admonition-anchor-link" href="02-structure.html#admonition-note-3"></a></p>
+</div>
+<div>
+<p>Using <code>crossterm::event::EventStream::new()</code> requires the <code>event-stream</code> feature to be enabled.</p>
+<pre><code class="language-yml">crossterm = { version = &quot;0.26.1&quot;, default-features = false, features = [&quot;event-stream&quot;] }
+</code></pre>
+</div>
+</div>
+<p>With this <code>EventHandler</code> implemented, we can use <code>tokio</code> to create a separate “task” that handles
+any key asynchronously in our <code>main</code> loop.</p>
+<p>I personally like to combine the <code>EventHandler</code> and the <code>Tui</code> struct into one struct. Here’s an
+example of that <code>Tui</code> struct for your reference.</p>
+<pre><code class="language-rust">use std::{
+  ops::{Deref, DerefMut},
+  time::Duration,
+};
+
+use color_eyre::eyre::Result;
+use crossterm::{
+  cursor,
+  event::{Event as CrosstermEvent, KeyEvent, KeyEventKind, MouseEvent},
+  terminal::{EnterAlternateScreen, LeaveAlternateScreen},
+};
+use futures::{FutureExt, StreamExt};
+use ratatui::backend::CrosstermBackend as Backend;
+use serde::{Deserialize, Serialize};
+use tokio::{
+  sync::mpsc::{self, UnboundedReceiver, UnboundedSender},
+  task::JoinHandle,
+};
+use tokio_util::sync::CancellationToken;
+
+pub type Frame&lt;'a&gt; = ratatui::Frame&lt;'a, Backend&lt;std::io::Stderr&gt;&gt;;
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub enum Event {
+  Init,
+  Quit,
+  Error,
+  Closed,
+  Tick,
+  Render,
+  FocusGained,
+  FocusLost,
+  Paste(String),
+  Key(KeyEvent),
+  Mouse(MouseEvent),
+  Resize(u16, u16),
+}
+
+pub struct Tui {
+  pub terminal: ratatui::Terminal&lt;Backend&lt;std::io::Stderr&gt;&gt;,
+  pub task: JoinHandle&lt;()&gt;,
+  pub cancellation_token: CancellationToken,
+  pub event_rx: UnboundedReceiver&lt;Event&gt;,
+  pub event_tx: UnboundedSender&lt;Event&gt;,
+  pub frame_rate: f64,
+  pub tick_rate: f64,
+}
+
+impl Tui {
+  pub fn new() -&gt; Result&lt;Self&gt; {
+    let tick_rate = 4.0;
+    let frame_rate = 60.0;
+    let terminal = ratatui::Terminal::new(Backend::new(std::io::stderr()))?;
+    let (event_tx, event_rx) = mpsc::unbounded_channel();
+    let cancellation_token = CancellationToken::new();
+    let task = tokio::spawn(async {});
+    Ok(Self { terminal, task, cancellation_token, event_rx, event_tx, frame_rate, tick_rate })
+  }
+
+  pub fn tick_rate(&amp;mut self, tick_rate: f64) {
+    self.tick_rate = tick_rate;
+  }
+
+  pub fn frame_rate(&amp;mut self, frame_rate: f64) {
+    self.frame_rate = frame_rate;
+  }
+
+  pub fn start(&amp;mut self) {
+    let tick_delay = std::time::Duration::from_secs_f64(1.0 / self.tick_rate);
+    let render_delay = std::time::Duration::from_secs_f64(1.0 / self.frame_rate);
+    self.cancel();
+    self.cancellation_token = CancellationToken::new();
+    let _cancellation_token = self.cancellation_token.clone();
+    let _event_tx = self.event_tx.clone();
+    self.task = tokio::spawn(async move {
+      let mut reader = crossterm::event::EventStream::new();
+      let mut tick_interval = tokio::time::interval(tick_delay);
+      let mut render_interval = tokio::time::interval(render_delay);
+      _event_tx.send(Event::Init).unwrap();
+      loop {
+        let tick_delay = tick_interval.tick();
+        let render_delay = render_interval.tick();
+        let crossterm_event = reader.next().fuse();
+        tokio::select! {
+          _ = _cancellation_token.cancelled() =&gt; {
+            break;
+          }
+          maybe_event = crossterm_event =&gt; {
+            match maybe_event {
+              Some(Ok(evt)) =&gt; {
+                match evt {
+                  CrosstermEvent::Key(key) =&gt; {
+                    if key.kind == KeyEventKind::Press {
+                      _event_tx.send(Event::Key(key)).unwrap();
+                    }
+                  },
+                  CrosstermEvent::Mouse(mouse) =&gt; {
+                    _event_tx.send(Event::Mouse(mouse)).unwrap();
+                  },
+                  CrosstermEvent::Resize(x, y) =&gt; {
+                    _event_tx.send(Event::Resize(x, y)).unwrap();
+                  },
+                  CrosstermEvent::FocusLost =&gt; {
+                    _event_tx.send(Event::FocusLost).unwrap();
+                  },
+                  CrosstermEvent::FocusGained =&gt; {
+                    _event_tx.send(Event::FocusGained).unwrap();
+                  },
+                  CrosstermEvent::Paste(s) =&gt; {
+                    _event_tx.send(Event::Paste(s)).unwrap();
+                  },
+                }
+              }
+              Some(Err(_)) =&gt; {
+                _event_tx.send(Event::Error).unwrap();
+              }
+              None =&gt; {},
+            }
+          },
+          _ = tick_delay =&gt; {
+              _event_tx.send(Event::Tick).unwrap();
+          },
+          _ = render_delay =&gt; {
+              _event_tx.send(Event::Render).unwrap();
+          },
+        }
+      }
+    });
+  }
+
+  pub fn stop(&amp;self) -&gt; Result&lt;()&gt; {
+    self.cancel();
+    let mut counter = 0;
+    while !self.task.is_finished() {
+      std::thread::sleep(Duration::from_millis(1));
+      counter += 1;
+      if counter &gt; 50 {
+        self.task.abort();
+      }
+      if counter &gt; 100 {
+        log::error!(&quot;Failed to abort task in 100 milliseconds for unknown reason&quot;);
+        break;
+      }
+    }
+    Ok(())
+  }
+
+  pub fn enter(&amp;mut self) -&gt; Result&lt;()&gt; {
+    crossterm::terminal::enable_raw_mode()?;
+    crossterm::execute!(std::io::stderr(), EnterAlternateScreen, cursor::Hide)?;
+    self.start();
+    Ok(())
+  }
+
+  pub fn exit(&amp;mut self) -&gt; Result&lt;()&gt; {
+    self.stop()?;
+    if crossterm::terminal::is_raw_mode_enabled()? {
+      self.flush()?;
+      crossterm::execute!(std::io::stderr(), LeaveAlternateScreen, cursor::Show)?;
+      crossterm::terminal::disable_raw_mode()?;
+    }
+    Ok(())
+  }
+
+  pub fn cancel(&amp;self) {
+    self.cancellation_token.cancel();
+  }
+
+  pub fn suspend(&amp;mut self) -&gt; Result&lt;()&gt; {
+    self.exit()?;
+    #[cfg(not(windows))]
+    signal_hook::low_level::raise(signal_hook::consts::signal::SIGTSTP)?;
+    Ok(())
+  }
+
+  pub fn resume(&amp;mut self) -&gt; Result&lt;()&gt; {
+    self.enter()?;
+    Ok(())
+  }
+
+  pub async fn next(&amp;mut self) -&gt; Option&lt;Event&gt; {
+    self.event_rx.recv().await
+  }
+}
+
+impl Deref for Tui {
+  type Target = ratatui::Terminal&lt;Backend&lt;std::io::Stderr&gt;&gt;;
+
+  fn deref(&amp;self) -&gt; &amp;Self::Target {
+    &amp;self.terminal
+  }
+}
+
+impl DerefMut for Tui {
+  fn deref_mut(&amp;mut self) -&gt; &amp;mut Self::Target {
+    &amp;mut self.terminal
+  }
+}
+
+impl Drop for Tui {
+  fn drop(&amp;mut self) {
+    self.exit().unwrap();
+  }
+}</code></pre>
+<p>In the next section, we will introduce a <code>Command</code> pattern to bridge handling the effect of an
+event.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="actionrs"><a class="header" href="#actionrs"><code>action.rs</code></a></h1>
+<p>Now that we have created a <code>Tui</code> and <code>EventHandler</code>, we are also going to introduce the <code>Command</code>
+pattern.</p>
+<div id="admonition-tip" class="admonition tip">
+<div class="admonition-title">
+<p>Tip</p>
+<p><a class="admonition-anchor-link" href="03-structure.html#admonition-tip"></a></p>
+</div>
+<div>
+<p>The <code>Command</code> pattern is the concept of “reified method calls”.
+You can learn a lot more about this pattern from the excellent <a href="http://gameprogrammingpatterns.com/command.html">http://gameprogrammingpatterns.com</a>.</p>
+</div>
+</div>
+<p>These are also typically called <code>Action</code>s or <code>Message</code>s.</p>
+<div id="admonition-note" class="admonition note">
+<div class="admonition-title">
+<p>Note</p>
+<p><a class="admonition-anchor-link" href="03-structure.html#admonition-note"></a></p>
+</div>
+<div>
+<p>It should come as no surprise that building a terminal user interface using <code>ratatui</code> (i.e. an immediate mode rendering library) has a lot of similarities with game development or user interface libraries.
+For example, you’ll find these domains all have their own version of “input handling”, “event loop” and “draw” step.</p>
+<p>If you are coming to <code>ratatui</code> with a background in <code>Elm</code> or <code>React</code>, or if you are looking for a framework that extends the <code>ratatui</code> library to provide a more standard UI design paradigm, you can check out <a href="https://github.com/veeso/tui-realm/"><code>tui-realm</code></a> for a more featureful out of the box experience.</p>
+</div>
+</div>
+<pre><code class="language-rust">pub enum Action {
+  Quit,
+  Tick,
+  Increment,
+  Decrement,
+  Noop,
+}</code></pre>
+<div id="admonition-tip-1" class="admonition tip">
+<div class="admonition-title">
+<p>Tip</p>
+<p><a class="admonition-anchor-link" href="03-structure.html#admonition-tip-1"></a></p>
+</div>
+<div>
+<p>You can attach payloads to enums in rust.
+For example, in the following <code>Action</code> enum, <code>Increment(usize)</code> and <code>Decrement(usize)</code> have
+a <code>usize</code> payload which can be used to represent the value to add to or subtract from
+the counter as a payload.</p>
+<pre><code class="language-rust">#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum Action {
+  Quit,
+  Tick,
+  Increment(usize),
+  Decrement(usize),
+  Noop,
+}</code></pre>
+<p>Also, note that we are using <code>Noop</code> here as a variant that means “no operation”.
+You can remove <code>Noop</code> from <code>Action</code> and return <code>Option&lt;Action&gt;</code> instead of <code>Action</code>,
+using Rust’s built in <code>None</code> type to represent “no operation”.</p>
+</div>
+</div>
+<p>Let’s define a simple <code>impl App</code> such that every <code>Event</code> from the <code>EventHandler</code> is mapped to an
+<code>Action</code> from the enum.</p>
+<pre><code class="language-rust">#[derive(Default)]
+struct App {
+  counter: i64,
+  should_quit: bool,
+}
+
+impl App {
+  pub fn new() -&gt; Self {
+    Self::default()
+  }
+
+  pub async fn run(&amp;mut self) -&gt; Result&lt;()&gt; {
+    let t = Tui::new();
+    t.enter();
+    let mut events = EventHandler::new(tick_rate);
+    loop {
+      let event = events.next().await;
+      let action = self.handle_events(event);
+      self.update(action);
+      t.terminal.draw(|f| self.draw(f))?;
+      if self.should_quit {
+        break
+      }
+    };
+    t.exit();
+    Ok(())
+  }
+
+  fn handle_events(&amp;mut self, event: Option&lt;Event&gt;) -&gt; Action {
+    match event {
+      Some(Event::Quit) =&gt; Action::Quit,
+      Some(Event::AppTick) =&gt; Action::Tick,
+      Some(Event::Key(key_event)) =&gt; {
+        if let Some(key) = event {
+            match key.code {
+              KeyCode::Char('q') =&gt; Action::Quit,
+              KeyCode::Char('j') =&gt; Action::Increment,
+              KeyCode::Char('k') =&gt; Action::Decrement
+              _ =&gt; {}
+          }
+        }
+      },
+      Some(_) =&gt; Action::Noop,
+      None =&gt; Action::Noop,
+    }
+  }
+
+  fn update(&amp;mut self, action: Action) {
+    match action {
+      Action::Quit =&gt; self.should_quit = true,
+      Action::Tick =&gt; self.tick(),
+      Action::Increment =&gt; self.increment(),
+      Action::Decrement =&gt; self.decrement(),
+  }
+
+  fn increment(&amp;mut self) {
+    self.counter += 1;
+  }
+
+  fn decrement(&amp;mut self) {
+    self.counter -= 1;
+  }
+
+  fn draw(&amp;mut self, f: &amp;mut Frame&lt;'_&gt;) {
+    f.render_widget(
+      Paragraph::new(format!(
+        &quot;Press j or k to increment or decrement.\n\nCounter: {}&quot;,
+        self.counter
+      ))
+    )
+  }
+}</code></pre>
+<p>We use <code>handle_events(event) -&gt; Action</code> to take a <code>Event</code> and map it to a <code>Action</code>. We use
+<code>update(action)</code> to take an <code>Action</code> and modify the state of the app.</p>
+<p>One advantage of this approach is that we can modify <code>handle_key_events()</code> to use a key
+configuration if we’d like, so that users can define their own map from key to action.</p>
+<p>Another advantage of this is that the business logic of the <code>App</code> struct can be tested without
+having to create an instance of a <code>Tui</code> or <code>EventHandler</code>, e.g.:</p>
+<pre><code class="language-rust">mod tests {
+  #[test]
+  fn test_app() {
+    let mut app = App::new();
+    let old_counter = app.counter;
+    app.update(Action::Increment);
+    assert!(app.counter == old_counter + 1);
+  }
+}</code></pre>
+<p>In the test above, we did not create an instance of the <code>Tui</code> or the <code>EventHandler</code>, and did not
+call the <code>run</code> function, but we are still able to test the business logic of our application.
+Updating the app state on <code>Action</code>s gets us one step closer to making our application a “state
+machine”, which improves understanding and testability.</p>
+<p>If we wanted to be purist about it, we would make our <code>AppState</code> immutable, and we would have an
+<code>update</code> function like so:</p>
+<pre><code class="language-rust">fn update(app_state::AppState, action::Action) -&gt; new_app_state::State {
+  let mut state = app_state.clone();
+  state.counter += 1;
+  // ...
+  state
+}</code></pre>
+<p>In rare occasions, we may also want to choose a future action during <code>update</code>.</p>
+<pre><code class="language-rust">fn update(app_state::AppState, action::Action) -&gt; (new_app_state::State, Option&lt;action::Action&gt;) {
+  let mut state = app_state.clone();
+  state.counter += 1;
+  // ...
+  (state, Action::Tick)
+}</code></pre>
+<div id="admonition-note-1" class="admonition note">
+<div class="admonition-title">
+<p>Note</p>
+<p><a class="admonition-anchor-link" href="03-structure.html#admonition-note-1"></a></p>
+</div>
+<div>
+<p>In <a href="https://github.com/charmbracelet/bubbletea"><code>Charm</code>’s <code>bubbletea</code></a>, this function is called an <code>Update</code>. Here’s an example of what that might look like:</p>
+<pre><code class="language-go">func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
+    switch msg := msg.(type) {
+
+    // Is it a key press?
+    case tea.KeyMsg:
+        // These keys should exit the program.
+        case &quot;q&quot;:
+            return m, tea.Quit
+
+        case &quot;k&quot;:
+            m.counter--
+
+        case &quot;j&quot;:
+            m.counter++
+    }
+
+    // Note that we're not returning a command.
+    return m, nil
+}
+</code></pre>
+</div>
+</div>
+<p>Writing code to follow this architecture in rust (in my opinion) requires more upfront design,
+mostly because you have to make your <code>AppState</code> struct <code>Clone</code>-friendly. If I were in an exploratory
+or prototype stage of a TUI, I wouldn’t want to do that and would only be interested in refactoring
+it this way once I got a handle on the design.</p>
+<p>My workaround for this (as you saw earlier) is to make <code>update</code> a method that takes a <code>&amp;mut self</code>:</p>
+<pre><code class="language-rust">impl App {
+  fn update(&amp;mut self, action: Action) -&gt; Option&lt;Action&gt; {
+    self.counter += 1
+    None
+  }
+}</code></pre>
+<p>You are free to reorganize the code as you see fit!</p>
+<p>You can also add more actions as required. For example, here’s all the actions in the template:</p>
+<pre><code class="language-rust no_run noplayground">#[derive(Debug, Clone, PartialEq, Eq, Serialize, Display, Deserialize)]
+pub enum Action {
+  Tick,
+  Render,
+  Resize(u16, u16),
+  Suspend,
+  Resume,
+  Quit,
+  Refresh,
+  Error(String),
+  Help,
+  ToggleShowHelp,
+  ScheduleIncrement,
+  ScheduleDecrement,
+  Increment(usize),
+  Decrement(usize),
+  CompleteInput(String),
+  EnterNormal,
+  EnterInsert,
+  EnterProcessing,
+  ExitProcessing,
+  Update,
+}</code></pre>
+<div id="admonition-note-2" class="admonition note">
+<div class="admonition-title">
+<p>Note</p>
+<p><a class="admonition-anchor-link" href="03-structure.html#admonition-note-2"></a></p>
+</div>
+<div>
+<p>We are choosing to use <code>serde</code> for <code>Action</code> so that we can allow users to decide which key event maps to which <code>Action</code> using a file for configuration.
+This is discussed in more detail in the <a href="./08-structure.html"><code>config</code></a> section.</p>
+</div>
+</div>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="apprs"><a class="header" href="#apprs"><code>app.rs</code></a></h1>
+<p>Finally, putting all the pieces together, we are almost ready to get the <code>Run</code> struct. Before we do,
+we should discuss the process of a TUI.</p>
+<p>Most TUIs are single process, single threaded applications.</p>
+<pre class="svgbob"><style>text{fill:var(--fg)}</style><svg xmlns="http://www.w3.org/2000/svg" width="136" height="224">
+  <style>
+    line, path, circle, rect, polygon{stroke:var(--fg);stroke-width:2;stroke-opacity:1;fill-opacity:1;stroke-linecap:round;stroke-linejoin:miter;}text{font-family:Iosevka Fixed, monospace;font-size:14px;}rect.backdrop{stroke:none;fill:transparent;}.broken{stroke-dasharray:8;}.filled{fill:black;}.bg_filled{fill:transparent;}.nofill{fill:transparent;}.end_marked_arrow{marker-end:url(#arrow);}.start_marked_arrow{marker-start:url(#arrow);}.end_marked_diamond{marker-end:url(#diamond);}.start_marked_diamond{marker-start:url(#diamond);}.end_marked_circle{marker-end:url(#circle);}.start_marked_circle{marker-start:url(#circle);}.end_marked_open_circle{marker-end:url(#open_circle);}.start_marked_open_circle{marker-start:url(#open_circle);}.end_marked_big_open_circle{marker-end:url(#big_open_circle);}.start_marked_big_open_circle{marker-start:url(#big_open_circle);}
+    <!--separator-->
+    
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="-2 -2 8 8" refX="4" refY="2" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <polygon points="0,0 0,4 4,2 0,0"></polygon>
+    </marker>
+    <marker id="diamond" viewBox="-2 -2 8 8" refX="4" refY="2" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <polygon points="0,2 2,0 4,2 2,4 0,2"></polygon>
+    </marker>
+    <marker id="circle" viewBox="0 0 8 8" refX="4" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <circle cx="4" cy="4" r="2" class="filled"></circle>
+    </marker>
+    <marker id="open_circle" viewBox="0 0 8 8" refX="4" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <circle cx="4" cy="4" r="2" class="bg_filled"></circle>
+    </marker>
+    <marker id="big_open_circle" viewBox="0 0 8 8" refX="4" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <circle cx="4" cy="4" r="3" class="bg_filled"></circle>
+    </marker>
+  </defs>
+  <rect class="backdrop" x="0" y="0" width="136" height="224"></rect>
+  <text x="18" y="28" >Get</text>
+  <text x="50" y="28" >Key</text>
+  <text x="82" y="28" >Event</text>
+  <text x="18" y="108" >Update</text>
+  <text x="74" y="108" >State</text>
+  <text x="42" y="188" >Draw</text>
+  <g>
+    <path d="M 16,8 A 4,4 0,0,0 12,12" class="nofill"></path>
+    <line x1="12" y1="12" x2="12" y2="36" class="solid"></line>
+    <line x1="16" y1="8" x2="120" y2="8" class="solid"></line>
+    <path d="M 120,8 A 4,4 0,0,1 124,12" class="nofill"></path>
+    <line x1="124" y1="12" x2="124" y2="36" class="solid"></line>
+    <path d="M 12,36 A 4,4 0,0,0 16,40" class="nofill"></path>
+    <line x1="16" y1="40" x2="120" y2="40" class="solid"></line>
+    <line x1="60" y1="40" x2="60" y2="84" class="solid"></line>
+    <path d="M 124,36 A 4,4 0,0,1 120,40" class="nofill"></path>
+    <polygon points="56,84 64,84 60,96" class="filled"></polygon>
+  </g>
+  <g>
+    <path d="M 16,88 A 4,4 0,0,0 12,92" class="nofill"></path>
+    <line x1="12" y1="92" x2="12" y2="116" class="solid"></line>
+    <line x1="16" y1="88" x2="56" y2="88" class="solid"></line>
+    <path d="M 12,116 A 4,4 0,0,0 16,120" class="nofill"></path>
+    <line x1="16" y1="120" x2="112" y2="120" class="solid"></line>
+    <line x1="60" y1="120" x2="60" y2="164" class="solid"></line>
+    <polygon points="56,164 64,164 60,176" class="filled"></polygon>
+    <line x1="64" y1="88" x2="112" y2="88" class="solid"></line>
+    <path d="M 112,88 A 4,4 0,0,1 116,92" class="nofill"></path>
+    <line x1="116" y1="92" x2="116" y2="116" class="solid"></line>
+    <path d="M 116,116 A 4,4 0,0,1 112,120" class="nofill"></path>
+  </g>
+  <g>
+    <path d="M 32,168 A 4,4 0,0,0 28,172" class="nofill"></path>
+    <line x1="28" y1="172" x2="28" y2="196" class="solid"></line>
+    <line x1="32" y1="168" x2="56" y2="168" class="solid"></line>
+    <path d="M 28,196 A 4,4 0,0,0 32,200" class="nofill"></path>
+    <line x1="32" y1="200" x2="88" y2="200" class="solid"></line>
+    <line x1="64" y1="168" x2="88" y2="168" class="solid"></line>
+    <path d="M 88,168 A 4,4 0,0,1 92,172" class="nofill"></path>
+    <line x1="92" y1="172" x2="92" y2="196" class="solid"></line>
+    <path d="M 92,196 A 4,4 0,0,1 88,200" class="nofill"></path>
+  </g>
+</svg></pre>
+<p>When an application is structured like this, the TUI is blocking at each step:</p>
+<ol>
+<li>Waiting for a Event.
+<ul>
+<li>If no key or mouse event in 250ms, send <code>Tick</code>.</li>
+</ul>
+</li>
+<li>Update the state of the app based on <code>event</code> or <code>action</code>.</li>
+<li><code>draw</code> the state of the app to the terminal using <code>ratatui</code>.</li>
+</ol>
+<p>This works perfectly fine for small applications, and this is what I recommend starting out with.
+For <em>most</em> TUIs, you’ll never need to graduate from this process methodology.</p>
+<p>Usually, <code>draw</code> and <code>get_events</code> are fast enough that it doesn’t matter. But if you do need to do a
+computationally demanding or I/O intensive task while updating state (e.g. reading a database,
+computing math or making a web request), your app may “hang” while it is doing so.</p>
+<p>Let’s say a user presses <code>j</code> to scroll down a list. And every time the user presses <code>j</code> you want to
+check the web for additional items to add to the list.</p>
+<p>What should happen when a user presses and holds <code>j</code>? It is up to you to decide how you would like
+your TUI application to behave in that instance.</p>
+<p>You may decide that the desired behavior for your app is to hang while downloading new elements for
+the list, and all key presses while the app hangs are received and handled “instantly” after the
+download completes.</p>
+<p>Or you may decide to <code>flush</code> all keyboard events so they are not buffered, and you may want to
+implement something like the following:</p>
+<pre><code class="language-rust">let mut app = App::new();
+loop {
+  // ...
+  let before_draw = Instant::now();
+  t.terminal.draw(|f| self.render(f))?;
+  // If drawing to the terminal is slow, flush all keyboard events so they're not buffered.
+  if before_draw.elapsed() &gt; Duration::from_millis(20) {
+      while let Ok(_) = events.try_next() {}
+  }
+  // ...
+}</code></pre>
+<p>Alternatively, you may decide you want the app to update in the background, and a user should be
+able to scroll through the existing list while the app is downloading new elements.</p>
+<p>In my experience, the trade-off is here is usually complexity for the developer versus ergonomics
+for the user.</p>
+<p>Let’s say we weren’t worried about complexity, and were interested in performing a computationally
+demanding or I/O intensive task in the background. For our example, let’s say that we wanted to
+trigger a increment to the counter after sleeping for <code>5</code> seconds.</p>
+<p>This means that we’ll have to start a “task” that sleeps for 5 seconds, and then sends another
+<code>Action</code> to be dispatched on.</p>
+<p>Now, our <code>update()</code> method takes the following shape:</p>
+<pre><code class="language-rust">  fn update(&amp;mut self, action: Action) -&gt; Option&lt;Action&gt; {
+    match action {
+      Action::Tick =&gt; self.tick(),
+      Action::ScheduleIncrement =&gt; self.schedule_increment(1),
+      Action::ScheduleDecrement =&gt; self.schedule_decrement(1),
+      Action::Increment(i) =&gt; self.increment(i),
+      Action::Decrement(i) =&gt; self.decrement(i),
+      _ =&gt; (),
+    }
+    None
+  }</code></pre>
+<p>And <code>schedule_increment()</code> and <code>schedule_decrement()</code> both spawn short lived <code>tokio</code> tasks:</p>
+<pre><code class="language-rust">  pub fn schedule_increment(&amp;mut self, i: i64) {
+    let tx = self.action_tx.clone().unwrap();
+    tokio::spawn(async move {
+      tokio::time::sleep(Duration::from_secs(5)).await;
+      tx.send(Action::Increment(i)).unwrap();
+    });
+  }
+
+  pub fn schedule_decrement(&amp;mut self, i: i64) {
+    let tx = self.action_tx.clone().unwrap();
+    tokio::spawn(async move {
+      tokio::time::sleep(Duration::from_secs(5)).await;
+      tx.send(Action::Decrement(i)).unwrap();
+    });
+  }
+
+  pub fn increment(&amp;mut self, i: i64) {
+    self.counter += i;
+  }
+
+  pub fn decrement(&amp;mut self, i: i64) {
+    self.counter -= i;
+  }
+</code></pre>
+<p>In order to do this, we want to set up a <code>action_tx</code> on the <code>App</code> struct:</p>
+<pre><code class="language-rust">#[derive(Default)]
+struct App {
+  counter: i64,
+  should_quit: bool,
+  action_tx: Option&lt;UnboundedSender&lt;Action&gt;&gt;
+}</code></pre>
+<div id="admonition-note" class="admonition note">
+<div class="admonition-title">
+<p>Note</p>
+<p><a class="admonition-anchor-link" href="04-structure.html#admonition-note"></a></p>
+</div>
+<div>
+<p>The only reason we are using an <code>Option&lt;T&gt;</code> here for <code>action_tx</code> is that we are not initializing the action channel when creating the instance of the <code>App</code>.</p>
+</div>
+</div>
+<p>This is what we want to do:</p>
+<pre><code class="language-rust">  pub async fn run(&amp;mut self) -&gt; Result&lt;()&gt; {
+    let (action_tx, mut action_rx) = mpsc::unbounded_channel();
+    let t = Tui::new();
+    t.enter();
+
+    tokio::spawn(async move {
+      let mut event = EventHandler::new(250);
+      loop {
+        let event = event.next().await;
+        let action = self.handle_events(event); // ERROR: self is moved to this tokio task
+        action_tx.send(action);
+      }
+    })
+
+    loop {
+      if let Some(action) = action_rx.recv().await {
+        self.update(action);
+      }
+      t.terminal.draw(|f| self.render(f))?;
+      if self.should_quit {
+        break
+      }
+    }
+    t.exit();
+    Ok(())
+  }</code></pre>
+<p>However, this doesn’t quite work because we can’t move <code>self</code>, i.e. the <code>App</code> to the
+<code>event -&gt; action</code> mapping, i.e. <code>self.handle_events()</code>, and still use it later for <code>self.update()</code>.</p>
+<p>One way to solve this is to pass a <code>Arc&lt;Mutex&lt;App&gt;</code> instance to the <code>event -&gt; action</code> mapping loop,
+where it uses a <code>lock()</code> to get a reference to the object to call <code>obj.handle_events()</code>. We’ll have
+to use the same <code>lock()</code> functionality in the main loop as well to call <code>obj.update()</code>.</p>
+<pre><code class="language-rust">pub struct App {
+  pub component: Arc&lt;Mutex&lt;App&gt;&gt;,
+  pub should_quit: bool,
+}
+
+impl App {
+  pub async fn run(&amp;mut self) -&gt; Result&lt;()&gt; {
+    let (action_tx, mut action_rx) = mpsc::unbounded_channel();
+
+    let tui = Tui::new();
+    tui.enter();
+
+    tokio::spawn(async move {
+      let component = self.component.clone();
+      let mut event = EventHandler::new(250);
+      loop {
+        let event = event.next().await;
+        let action = component.lock().await.handle_events(event);
+        action_tx.send(action);
+      }
+    })
+
+    loop {
+      if let Some(action) = action_rx.recv().await {
+        match action {
+          Action::Render =&gt; {
+            let c = self.component.lock().await;
+            t.terminal.draw(|f| c.render(f))?;
+          };
+          Action::Quit =&gt; self.should_quit = true,
+          _ =&gt; self.component.lock().await.update(action),
+        }
+      }
+      self.should_quit {
+        break;
+      }
+    }
+
+    tui.exit();
+    Ok(())
+  }
+}</code></pre>
+<p>Now our <code>App</code> is generic boilerplate that doesn’t depend on any business logic. It is responsible
+just to drive the application forward, i.e. call appropriate functions.</p>
+<p>We can go one step further and make the render loop its own <code>tokio</code> task:</p>
+<pre><code class="language-rust">pub struct App {
+  pub component: Arc&lt;Mutex&lt;Home&gt;&gt;,
+  pub should_quit: bool,
+}
+
+impl App {
+  pub async fn run(&amp;mut self) -&gt; Result&lt;()&gt; {
+    let (render_tx, mut render_rx) = mpsc::unbounded_channel();
+
+    tokio::spawn(async move {
+      let component = self.component.clone();
+      let tui = Tui::new();
+      tui.enter();
+      loop {
+        if let Some(_) = render_rx.recv() {
+          let c = self.component.lock().await;
+          tui.terminal.draw(|f| c.render(f))?;
+        }
+      }
+      tui.exit()
+    })
+
+    let (action_tx, mut action_rx) = mpsc::unbounded_channel();
+
+    tokio::spawn(async move {
+      let component = self.component.clone();
+      let mut event = EventHandler::new(250);
+      loop {
+        let event = event.next().await;
+        let action = component.lock().await.handle_events(event);
+        action_tx.send(action);
+      }
+    })
+
+    loop {
+      if let Some(action) = action_rx.recv().await {
+        match action {
+          Action::Render =&gt; {
+            render_tx.send(());
+          };
+          Action::Quit =&gt; self.should_quit = true,
+          _ =&gt; self.component.lock().await.update(action),
+        }
+      }
+      self.should_quit {
+        break;
+      }
+    }
+
+    Ok(())
+  }
+}</code></pre>
+<p>Now our final architecture would look like this:</p>
+<pre class="svgbob"><style>text{fill:var(--fg)}</style><svg xmlns="http://www.w3.org/2000/svg" width="640" height="352">
+  <style>
+    line, path, circle, rect, polygon{stroke:var(--fg);stroke-width:2;stroke-opacity:1;fill-opacity:1;stroke-linecap:round;stroke-linejoin:miter;}text{font-family:Iosevka Fixed, monospace;font-size:14px;}rect.backdrop{stroke:none;fill:transparent;}.broken{stroke-dasharray:8;}.filled{fill:black;}.bg_filled{fill:transparent;}.nofill{fill:transparent;}.end_marked_arrow{marker-end:url(#arrow);}.start_marked_arrow{marker-start:url(#arrow);}.end_marked_diamond{marker-end:url(#diamond);}.start_marked_diamond{marker-start:url(#diamond);}.end_marked_circle{marker-end:url(#circle);}.start_marked_circle{marker-start:url(#circle);}.end_marked_open_circle{marker-end:url(#open_circle);}.start_marked_open_circle{marker-start:url(#open_circle);}.end_marked_big_open_circle{marker-end:url(#big_open_circle);}.start_marked_big_open_circle{marker-start:url(#big_open_circle);}
+    <!--separator-->
+    
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="-2 -2 8 8" refX="4" refY="2" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <polygon points="0,0 0,4 4,2 0,0"></polygon>
+    </marker>
+    <marker id="diamond" viewBox="-2 -2 8 8" refX="4" refY="2" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <polygon points="0,2 2,0 4,2 2,4 0,2"></polygon>
+    </marker>
+    <marker id="circle" viewBox="0 0 8 8" refX="4" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <circle cx="4" cy="4" r="2" class="filled"></circle>
+    </marker>
+    <marker id="open_circle" viewBox="0 0 8 8" refX="4" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <circle cx="4" cy="4" r="2" class="bg_filled"></circle>
+    </marker>
+    <marker id="big_open_circle" viewBox="0 0 8 8" refX="4" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <circle cx="4" cy="4" r="3" class="bg_filled"></circle>
+    </marker>
+  </defs>
+  <rect class="backdrop" x="0" y="0" width="640" height="352"></rect>
+  <text x="34" y="12" >Render</text>
+  <text x="90" y="12" >Thread</text>
+  <text x="258" y="12" >Event</text>
+  <text x="306" y="12" >Thread</text>
+  <text x="498" y="12" >Main</text>
+  <text x="538" y="12" >Thread</text>
+  <text x="258" y="60" >Get</text>
+  <text x="290" y="60" >Key</text>
+  <text x="322" y="60" >Event</text>
+  <text x="242" y="124" >Map</text>
+  <text x="274" y="124" >Event</text>
+  <text x="322" y="124" >to</text>
+  <text x="346" y="124" >Action</text>
+  <text x="218" y="188" >Send</text>
+  <text x="258" y="188" >Action</text>
+  <text x="314" y="188" >on</text>
+  <text x="338" y="188" >action</text>
+  <line x1="384" y1="192" x2="392" y2="192" class="solid"></line>
+  <text x="394" y="188" >tx</text>
+  <text x="514" y="188" >Recv</text>
+  <text x="554" y="188" >Action</text>
+  <text x="18" y="252" >Recv</text>
+  <text x="58" y="252" >on</text>
+  <text x="82" y="252" >render</text>
+  <line x1="128" y1="256" x2="136" y2="256" class="solid"></line>
+  <text x="138" y="252" >rx</text>
+  <text x="490" y="252" >Dispatch</text>
+  <text x="562" y="252" >Action</text>
+  <text x="18" y="316" >Render</text>
+  <text x="74" y="316" >Component</text>
+  <text x="490" y="316" >Update</text>
+  <text x="546" y="316" >Component</text>
+  <g>
+    <path d="M 240,40 A 4,4 0,0,0 236,44" class="nofill"></path>
+    <line x1="236" y1="44" x2="236" y2="68" class="solid"></line>
+    <line x1="240" y1="40" x2="384" y2="40" class="solid"></line>
+    <path d="M 384,40 A 4,4 0,0,1 388,44" class="nofill"></path>
+    <line x1="388" y1="44" x2="388" y2="68" class="solid"></line>
+    <path d="M 236,68 A 4,4 0,0,0 240,72" class="nofill"></path>
+    <line x1="240" y1="72" x2="384" y2="72" class="solid"></line>
+    <line x1="308" y1="72" x2="308" y2="100" class="solid"></line>
+    <path d="M 388,68 A 4,4 0,0,1 384,72" class="nofill"></path>
+    <polygon points="304,100 312,100 308,112" class="filled"></polygon>
+  </g>
+  <g>
+    <path d="M 232,104 A 4,4 0,0,0 228,108" class="nofill"></path>
+    <line x1="228" y1="108" x2="228" y2="132" class="solid"></line>
+    <line x1="232" y1="104" x2="304" y2="104" class="solid"></line>
+    <path d="M 228,132 A 4,4 0,0,0 232,136" class="nofill"></path>
+    <line x1="232" y1="136" x2="400" y2="136" class="solid"></line>
+    <line x1="308" y1="136" x2="308" y2="164" class="solid"></line>
+    <polygon points="304,164 312,164 308,176" class="filled"></polygon>
+    <line x1="312" y1="104" x2="400" y2="104" class="solid"></line>
+    <path d="M 400,104 A 4,4 0,0,1 404,108" class="nofill"></path>
+    <line x1="404" y1="108" x2="404" y2="132" class="solid"></line>
+    <path d="M 404,132 A 4,4 0,0,1 400,136" class="nofill"></path>
+  </g>
+  <g>
+    <path d="M 208,168 A 4,4 0,0,0 204,172" class="nofill"></path>
+    <line x1="204" y1="172" x2="204" y2="196" class="solid"></line>
+    <line x1="208" y1="168" x2="304" y2="168" class="solid"></line>
+    <path d="M 204,196 A 4,4 0,0,0 208,200" class="nofill"></path>
+    <line x1="208" y1="200" x2="424" y2="200" class="solid"></line>
+    <line x1="312" y1="168" x2="424" y2="168" class="solid"></line>
+    <path d="M 424,168 A 4,4 0,0,1 428,172" class="nofill"></path>
+    <line x1="428" y1="172" x2="428" y2="196" class="solid"></line>
+    <line x1="428" y1="184" x2="488" y2="184" class="solid"></line>
+    <polygon points="488,180 496,184 488,188" class="filled"></polygon>
+    <path d="M 428,196 A 4,4 0,0,1 424,200" class="nofill"></path>
+  </g>
+  <g>
+    <path d="M 504,168 A 4,4 0,0,0 500,172" class="nofill"></path>
+    <line x1="500" y1="172" x2="500" y2="196" class="solid"></line>
+    <line x1="504" y1="168" x2="608" y2="168" class="solid"></line>
+    <path d="M 608,168 A 4,4 0,0,1 612,172" class="nofill"></path>
+    <line x1="612" y1="172" x2="612" y2="196" class="solid"></line>
+    <path d="M 500,196 A 4,4 0,0,0 504,200" class="nofill"></path>
+    <line x1="504" y1="200" x2="608" y2="200" class="solid"></line>
+    <line x1="548" y1="200" x2="548" y2="228" class="solid"></line>
+    <path d="M 612,196 A 4,4 0,0,1 608,200" class="nofill"></path>
+    <polygon points="544,228 552,228 548,240" class="filled"></polygon>
+  </g>
+  <g>
+    <path d="M 8,232 A 4,4 0,0,0 4,236" class="nofill"></path>
+    <line x1="4" y1="236" x2="4" y2="260" class="solid"></line>
+    <line x1="8" y1="232" x2="160" y2="232" class="solid"></line>
+    <path d="M 160,232 A 4,4 0,0,1 164,236" class="nofill"></path>
+    <line x1="164" y1="236" x2="164" y2="260" class="solid"></line>
+    <path d="M 4,260 A 4,4 0,0,0 8,264" class="nofill"></path>
+    <line x1="8" y1="264" x2="160" y2="264" class="solid"></line>
+    <line x1="76" y1="264" x2="76" y2="292" class="solid"></line>
+    <path d="M 164,260 A 4,4 0,0,1 160,264" class="nofill"></path>
+    <polygon points="72,292 80,292 76,304" class="filled"></polygon>
+  </g>
+  <g>
+    <path d="M 480,232 A 4,4 0,0,0 476,236" class="nofill"></path>
+    <line x1="476" y1="236" x2="476" y2="260" class="solid"></line>
+    <line x1="480" y1="232" x2="544" y2="232" class="solid"></line>
+    <path d="M 476,260 A 4,4 0,0,0 480,264" class="nofill"></path>
+    <line x1="480" y1="264" x2="616" y2="264" class="solid"></line>
+    <line x1="548" y1="264" x2="548" y2="292" class="solid"></line>
+    <polygon points="544,292 552,292 548,304" class="filled"></polygon>
+    <line x1="552" y1="232" x2="616" y2="232" class="solid"></line>
+    <path d="M 616,232 A 4,4 0,0,1 620,236" class="nofill"></path>
+    <line x1="620" y1="236" x2="620" y2="260" class="solid"></line>
+    <path d="M 620,260 A 4,4 0,0,1 616,264" class="nofill"></path>
+    <polygon points="176,244 168,248 176,252" class="filled"></polygon>
+    <line x1="176" y1="248" x2="476" y2="248" class="solid"></line>
+  </g>
+  <g>
+    <path d="M 8,296 A 4,4 0,0,0 4,300" class="nofill"></path>
+    <line x1="4" y1="300" x2="4" y2="324" class="solid"></line>
+    <line x1="8" y1="296" x2="72" y2="296" class="solid"></line>
+    <path d="M 4,324 A 4,4 0,0,0 8,328" class="nofill"></path>
+    <line x1="8" y1="328" x2="152" y2="328" class="solid"></line>
+    <line x1="80" y1="296" x2="152" y2="296" class="solid"></line>
+    <path d="M 152,296 A 4,4 0,0,1 156,300" class="nofill"></path>
+    <line x1="156" y1="300" x2="156" y2="324" class="solid"></line>
+    <path d="M 156,324 A 4,4 0,0,1 152,328" class="nofill"></path>
+  </g>
+  <g>
+    <path d="M 480,296 A 4,4 0,0,0 476,300" class="nofill"></path>
+    <line x1="476" y1="300" x2="476" y2="324" class="solid"></line>
+    <line x1="480" y1="296" x2="544" y2="296" class="solid"></line>
+    <path d="M 476,324 A 4,4 0,0,0 480,328" class="nofill"></path>
+    <line x1="480" y1="328" x2="624" y2="328" class="solid"></line>
+    <line x1="552" y1="296" x2="624" y2="296" class="solid"></line>
+    <path d="M 624,296 A 4,4 0,0,1 628,300" class="nofill"></path>
+    <line x1="628" y1="300" x2="628" y2="324" class="solid"></line>
+    <path d="M 628,324 A 4,4 0,0,1 624,328" class="nofill"></path>
+  </g>
+</svg></pre>
+<p>You can change around when “thread” or “task” does what in your application if you’d like.</p>
+<p>It is up to you to decide is this pattern is worth it. In this template, we are going to keep things
+a little simpler. We are going to use just one thread or task to handle all the <code>Event</code>s.</p>
+<pre class="svgbob"><style>text{fill:var(--fg)}</style><svg xmlns="http://www.w3.org/2000/svg" width="560" height="224">
+  <style>
+    line, path, circle, rect, polygon{stroke:var(--fg);stroke-width:2;stroke-opacity:1;fill-opacity:1;stroke-linecap:round;stroke-linejoin:miter;}text{font-family:Iosevka Fixed, monospace;font-size:14px;}rect.backdrop{stroke:none;fill:transparent;}.broken{stroke-dasharray:8;}.filled{fill:black;}.bg_filled{fill:transparent;}.nofill{fill:transparent;}.end_marked_arrow{marker-end:url(#arrow);}.start_marked_arrow{marker-start:url(#arrow);}.end_marked_diamond{marker-end:url(#diamond);}.start_marked_diamond{marker-start:url(#diamond);}.end_marked_circle{marker-end:url(#circle);}.start_marked_circle{marker-start:url(#circle);}.end_marked_open_circle{marker-end:url(#open_circle);}.start_marked_open_circle{marker-start:url(#open_circle);}.end_marked_big_open_circle{marker-end:url(#big_open_circle);}.start_marked_big_open_circle{marker-start:url(#big_open_circle);}
+    <!--separator-->
+    
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="-2 -2 8 8" refX="4" refY="2" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <polygon points="0,0 0,4 4,2 0,0"></polygon>
+    </marker>
+    <marker id="diamond" viewBox="-2 -2 8 8" refX="4" refY="2" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <polygon points="0,2 2,0 4,2 2,4 0,2"></polygon>
+    </marker>
+    <marker id="circle" viewBox="0 0 8 8" refX="4" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <circle cx="4" cy="4" r="2" class="filled"></circle>
+    </marker>
+    <marker id="open_circle" viewBox="0 0 8 8" refX="4" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <circle cx="4" cy="4" r="2" class="bg_filled"></circle>
+    </marker>
+    <marker id="big_open_circle" viewBox="0 0 8 8" refX="4" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <circle cx="4" cy="4" r="3" class="bg_filled"></circle>
+    </marker>
+  </defs>
+  <rect class="backdrop" x="0" y="0" width="560" height="224"></rect>
+  <text x="58" y="12" >Event</text>
+  <text x="106" y="12" >Thread</text>
+  <text x="378" y="12" >Main</text>
+  <text x="418" y="12" >Thread</text>
+  <text x="58" y="60" >Get</text>
+  <text x="90" y="60" >Event</text>
+  <text x="18" y="124" >Send</text>
+  <text x="58" y="124" >Event</text>
+  <text x="106" y="124" >on</text>
+  <text x="130" y="124" >event</text>
+  <line x1="168" y1="128" x2="176" y2="128" class="solid"></line>
+  <text x="178" y="124" >tx</text>
+  <text x="314" y="124" >Recv</text>
+  <text x="354" y="124" >Event</text>
+  <text x="402" y="124" >and</text>
+  <text x="434" y="124" >Map</text>
+  <text x="466" y="124" >to</text>
+  <text x="490" y="124" >Action</text>
+  <text x="362" y="188" >Update</text>
+  <text x="418" y="188" >Component</text>
+  <g>
+    <path d="M 40,40 A 4,4 0,0,0 36,44" class="nofill"></path>
+    <line x1="36" y1="44" x2="36" y2="68" class="solid"></line>
+    <line x1="40" y1="40" x2="184" y2="40" class="solid"></line>
+    <path d="M 184,40 A 4,4 0,0,1 188,44" class="nofill"></path>
+    <line x1="188" y1="44" x2="188" y2="68" class="solid"></line>
+    <path d="M 36,68 A 4,4 0,0,0 40,72" class="nofill"></path>
+    <line x1="40" y1="72" x2="184" y2="72" class="solid"></line>
+    <line x1="108" y1="72" x2="108" y2="100" class="solid"></line>
+    <path d="M 188,68 A 4,4 0,0,1 184,72" class="nofill"></path>
+    <polygon points="104,100 112,100 108,112" class="filled"></polygon>
+  </g>
+  <g>
+    <path d="M 8,104 A 4,4 0,0,0 4,108" class="nofill"></path>
+    <line x1="4" y1="108" x2="4" y2="132" class="solid"></line>
+    <line x1="8" y1="104" x2="104" y2="104" class="solid"></line>
+    <path d="M 4,132 A 4,4 0,0,0 8,136" class="nofill"></path>
+    <line x1="8" y1="136" x2="224" y2="136" class="solid"></line>
+    <line x1="112" y1="104" x2="224" y2="104" class="solid"></line>
+    <path d="M 224,104 A 4,4 0,0,1 228,108" class="nofill"></path>
+    <line x1="228" y1="108" x2="228" y2="132" class="solid"></line>
+    <line x1="228" y1="120" x2="288" y2="120" class="solid"></line>
+    <polygon points="288,116 296,120 288,124" class="filled"></polygon>
+    <path d="M 228,132 A 4,4 0,0,1 224,136" class="nofill"></path>
+  </g>
+  <g>
+    <path d="M 304,104 A 4,4 0,0,0 300,108" class="nofill"></path>
+    <line x1="300" y1="108" x2="300" y2="132" class="solid"></line>
+    <line x1="304" y1="104" x2="544" y2="104" class="solid"></line>
+    <path d="M 544,104 A 4,4 0,0,1 548,108" class="nofill"></path>
+    <line x1="548" y1="108" x2="548" y2="132" class="solid"></line>
+    <path d="M 300,132 A 4,4 0,0,0 304,136" class="nofill"></path>
+    <line x1="304" y1="136" x2="544" y2="136" class="solid"></line>
+    <line x1="420" y1="136" x2="420" y2="164" class="solid"></line>
+    <path d="M 548,132 A 4,4 0,0,1 544,136" class="nofill"></path>
+    <polygon points="416,164 424,164 420,176" class="filled"></polygon>
+  </g>
+  <g>
+    <path d="M 352,168 A 4,4 0,0,0 348,172" class="nofill"></path>
+    <line x1="348" y1="172" x2="348" y2="196" class="solid"></line>
+    <line x1="352" y1="168" x2="416" y2="168" class="solid"></line>
+    <path d="M 348,196 A 4,4 0,0,0 352,200" class="nofill"></path>
+    <line x1="352" y1="200" x2="496" y2="200" class="solid"></line>
+    <line x1="424" y1="168" x2="496" y2="168" class="solid"></line>
+    <path d="M 496,168 A 4,4 0,0,1 500,172" class="nofill"></path>
+    <line x1="500" y1="172" x2="500" y2="196" class="solid"></line>
+    <path d="M 500,196 A 4,4 0,0,1 496,200" class="nofill"></path>
+  </g>
+</svg></pre>
+<p>All business logic will be located in a <code>App</code> struct.</p>
+<pre><code class="language-rust">#[derive(Default)]
+struct App {
+  counter: i64,
+}
+
+impl App {
+  fn handle_events(&amp;mut self, event: Option&lt;Event&gt;) -&gt; Action {
+    match event {
+      Some(Event::Quit) =&gt; Action::Quit,
+      Some(Event::AppTick) =&gt; Action::Tick,
+      Some(Event::Render) =&gt; Action::Render,
+      Some(Event::Key(key_event)) =&gt; {
+        if let Some(key) = event {
+            match key.code {
+              KeyCode::Char('j') =&gt; Action::Increment,
+              KeyCode::Char('k') =&gt; Action::Decrement
+              _ =&gt; {}
+          }
+        }
+      },
+      Some(_) =&gt; Action::Noop,
+      None =&gt; Action::Noop,
+    }
+  }
+
+  fn update(&amp;mut self, action: Action) {
+    match action {
+      Action::Tick =&gt; self.tick(),
+      Action::Increment =&gt; self.increment(),
+      Action::Decrement =&gt; self.decrement(),
+  }
+
+  fn increment(&amp;mut self) {
+    self.counter += 1;
+  }
+
+  fn decrement(&amp;mut self) {
+    self.counter -= 1;
+  }
+
+  fn render(&amp;mut self, f: &amp;mut Frame&lt;'_&gt;) {
+    f.render_widget(
+      Paragraph::new(format!(
+        &quot;Press j or k to increment or decrement.\n\nCounter: {}&quot;,
+        self.counter
+      ))
+    )
+  }
+}</code></pre>
+<p>With that, our <code>App</code> becomes a little more simpler:</p>
+<pre><code class="language-rust">pub struct App {
+  pub tick_rate: (u64, u64),
+  pub component: Home,
+  pub should_quit: bool,
+}
+
+impl Component {
+  pub fn new(tick_rate: (u64, u64)) -&gt; Result&lt;Self&gt; {
+    let component = Home::new();
+    Ok(Self { tick_rate, component, should_quit: false, should_suspend: false })
+  }
+
+  pub async fn run(&amp;mut self) -&gt; Result&lt;()&gt; {
+    let (action_tx, mut action_rx) = mpsc::unbounded_channel();
+
+    let mut tui = Tui::new();
+    tui.enter()
+
+    loop {
+      if let Some(e) = tui.next().await {
+        if let Some(action) = self.component.handle_events(Some(e.clone())) {
+          action_tx.send(action)?;
+        }
+      }
+
+      while let Ok(action) = action_rx.try_recv().await {
+        match action {
+          Action::Render =&gt; tui.draw(|f| self.component.render(f, f.size()))?,
+          Action::Quit =&gt; self.should_quit = true,
+          _ =&gt; self.component.update(action),
+        }
+      }
+      if self.should_quit {
+        tui.stop()?;
+        break;
+      }
+    }
+    tui.exit()
+    Ok(())
+  }
+}</code></pre>
+<p>Our <code>Component</code> currently does one thing and just one thing (increment and decrement a counter). But
+we may want to do more complex things and combine <code>Component</code>s in interesting ways. For example, we
+may want to add a text input field as well as show logs conditionally from our TUI application.</p>
+<p>In the next sections, we will talk about breaking out our app into various components, with the one
+root component called <code>Home</code>. And we’ll introduce a <code>Component</code> trait so it is easier to understand
+where the TUI specific code ends and where our app’s business logic begins.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="componentsmodrs"><a class="header" href="#componentsmodrs"><code>components/mod.rs</code></a></h1>
+<p>In <code>components/mod.rs</code>, we implement a <code>trait</code> called <code>Component</code>:</p>
+<pre><code class="language-rust no_run noplayground">pub trait Component {
+  #[allow(unused_variables)]
+  fn register_action_handler(&amp;mut self, tx: UnboundedSender&lt;Action&gt;) -&gt; Result&lt;()&gt; {
+    Ok(())
+  }
+  #[allow(unused_variables)]
+  fn register_config_handler(&amp;mut self, config: Config) -&gt; Result&lt;()&gt; {
+    Ok(())
+  }
+  fn init(&amp;mut self) -&gt; Result&lt;()&gt; {
+    Ok(())
+  }
+  fn handle_events(&amp;mut self, event: Option&lt;Event&gt;) -&gt; Result&lt;Option&lt;Action&gt;&gt; {
+    let r = match event {
+      Some(Event::Key(key_event)) =&gt; self.handle_key_events(key_event)?,
+      Some(Event::Mouse(mouse_event)) =&gt; self.handle_mouse_events(mouse_event)?,
+      _ =&gt; None,
+    };
+    Ok(r)
+  }
+  #[allow(unused_variables)]
+  fn handle_key_events(&amp;mut self, key: KeyEvent) -&gt; Result&lt;Option&lt;Action&gt;&gt; {
+    Ok(None)
+  }
+  #[allow(unused_variables)]
+  fn handle_mouse_events(&amp;mut self, mouse: MouseEvent) -&gt; Result&lt;Option&lt;Action&gt;&gt; {
+    Ok(None)
+  }
+  #[allow(unused_variables)]
+  fn update(&amp;mut self, action: Action) -&gt; Result&lt;Option&lt;Action&gt;&gt; {
+    Ok(None)
+  }
+  fn draw(&amp;mut self, f: &amp;mut Frame&lt;'_&gt;, rect: Rect) -&gt; Result&lt;()&gt;;
+}</code></pre>
+<p>I personally like keeping the functions for <code>handle_events</code> (i.e. event -&gt; action mapping),
+<code>dispatch</code> (i.e. action -&gt; state update mapping) and <code>render</code> (i.e. state -&gt; drawing mapping) all in
+one file for each component of my application.</p>
+<p>There’s also an <code>init</code> function that can be used to setup the <code>Component</code> when it is loaded.</p>
+<p>The <code>Home</code> struct (i.e. the root struct that may hold other <code>Component</code>s) will implement the
+<code>Component</code> trait. We’ll have a look at <code>Home</code> next.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="componentshomers"><a class="header" href="#componentshomers"><code>components/home.rs</code></a></h1>
+<p>Here’s an example of the <code>Home</code> component with additional state:</p>
+<ol>
+<li><code>show_help</code> is a <code>bool</code> that tracks whether or not help should be rendered or not</li>
+<li><code>ticker</code> is a counter that increments every <code>AppTick</code>.</li>
+</ol>
+<p>This <code>Home</code> component also adds fields for <code>input: Input</code>, and stores a reference to
+<code>action_tx: mpsc::UnboundedSender&lt;Action&gt;</code></p>
+<pre><code class="language-rust no_run noplayground">use std::{collections::HashMap, time::Duration};
+
+use color_eyre::eyre::Result;
+use crossterm::event::{KeyCode, KeyEvent};
+use log::error;
+use ratatui::{prelude::*, widgets::*};
+use tokio::sync::mpsc::UnboundedSender;
+use tracing::trace;
+use tui_input::{backend::crossterm::EventHandler, Input};
+
+use super::{Component, Frame};
+use crate::{action::Action, config::key_event_to_string};
+
+#[derive(Default, Copy, Clone, PartialEq, Eq)]
+pub enum Mode {
+  #[default]
+  Normal,
+  Insert,
+  Processing,
+}
+
+#[derive(Default)]
+pub struct Home {
+  pub show_help: bool,
+  pub counter: usize,
+  pub app_ticker: usize,
+  pub render_ticker: usize,
+  pub mode: Mode,
+  pub input: Input,
+  pub action_tx: Option&lt;UnboundedSender&lt;Action&gt;&gt;,
+  pub keymap: HashMap&lt;KeyEvent, Action&gt;,
+  pub text: Vec&lt;String&gt;,
+  pub last_events: Vec&lt;KeyEvent&gt;,
+}
+
+impl Home {
+  pub fn new() -&gt; Self {
+    Self::default()
+  }
+
+  pub fn keymap(mut self, keymap: HashMap&lt;KeyEvent, Action&gt;) -&gt; Self {
+    self.keymap = keymap;
+    self
+  }
+
+  pub fn tick(&amp;mut self) {
+    log::info!(&quot;Tick&quot;);
+    self.app_ticker = self.app_ticker.saturating_add(1);
+    self.last_events.drain(..);
+  }
+
+  pub fn render_tick(&amp;mut self) {
+    log::debug!(&quot;Render Tick&quot;);
+    self.render_ticker = self.render_ticker.saturating_add(1);
+  }
+
+  pub fn add(&amp;mut self, s: String) {
+    self.text.push(s)
+  }
+
+  pub fn schedule_increment(&amp;mut self, i: usize) {
+    let tx = self.action_tx.clone().unwrap();
+    tokio::spawn(async move {
+      tx.send(Action::EnterProcessing).unwrap();
+      tokio::time::sleep(Duration::from_secs(1)).await;
+      tx.send(Action::Increment(i)).unwrap();
+      tx.send(Action::ExitProcessing).unwrap();
+    });
+  }
+
+  pub fn schedule_decrement(&amp;mut self, i: usize) {
+    let tx = self.action_tx.clone().unwrap();
+    tokio::spawn(async move {
+      tx.send(Action::EnterProcessing).unwrap();
+      tokio::time::sleep(Duration::from_secs(1)).await;
+      tx.send(Action::Decrement(i)).unwrap();
+      tx.send(Action::ExitProcessing).unwrap();
+    });
+  }
+
+  pub fn increment(&amp;mut self, i: usize) {
+    self.counter = self.counter.saturating_add(i);
+  }
+
+  pub fn decrement(&amp;mut self, i: usize) {
+    self.counter = self.counter.saturating_sub(i);
+  }
+}
+
+impl Component for Home {
+  fn register_action_handler(&amp;mut self, tx: UnboundedSender&lt;Action&gt;) -&gt; Result&lt;()&gt; {
+    self.action_tx = Some(tx);
+    Ok(())
+  }
+
+  fn handle_key_events(&amp;mut self, key: KeyEvent) -&gt; Result&lt;Option&lt;Action&gt;&gt; {
+    self.last_events.push(key.clone());
+    let action = match self.mode {
+      Mode::Normal | Mode::Processing =&gt; return Ok(None),
+      Mode::Insert =&gt; {
+        match key.code {
+          KeyCode::Esc =&gt; Action::EnterNormal,
+          KeyCode::Enter =&gt; {
+            if let Some(sender) = &amp;self.action_tx {
+              if let Err(e) = sender.send(Action::CompleteInput(self.input.value().to_string())) {
+                error!(&quot;Failed to send action: {:?}&quot;, e);
+              }
+            }
+            Action::EnterNormal
+          },
+          _ =&gt; {
+            self.input.handle_event(&amp;crossterm::event::Event::Key(key));
+            Action::Update
+          },
+        }
+      },
+    };
+    Ok(Some(action))
+  }
+
+  fn update(&amp;mut self, action: Action) -&gt; Result&lt;Option&lt;Action&gt;&gt; {
+    match action {
+      Action::Tick =&gt; self.tick(),
+      Action::Render =&gt; self.render_tick(),
+      Action::ToggleShowHelp =&gt; self.show_help = !self.show_help,
+      Action::ScheduleIncrement =&gt; self.schedule_increment(1),
+      Action::ScheduleDecrement =&gt; self.schedule_decrement(1),
+      Action::Increment(i) =&gt; self.increment(i),
+      Action::Decrement(i) =&gt; self.decrement(i),
+      Action::CompleteInput(s) =&gt; self.add(s),
+      Action::EnterNormal =&gt; {
+        self.mode = Mode::Normal;
+      },
+      Action::EnterInsert =&gt; {
+        self.mode = Mode::Insert;
+      },
+      Action::EnterProcessing =&gt; {
+        self.mode = Mode::Processing;
+      },
+      Action::ExitProcessing =&gt; {
+        // TODO: Make this go to previous mode instead
+        self.mode = Mode::Normal;
+      },
+      _ =&gt; (),
+    }
+    Ok(None)
+  }
+
+  fn draw(&amp;mut self, f: &amp;mut Frame&lt;'_&gt;, rect: Rect) -&gt; Result&lt;()&gt; {
+    let rects = Layout::default().constraints([Constraint::Percentage(100), Constraint::Min(3)].as_ref()).split(rect);
+
+    let mut text: Vec&lt;Line&gt; = self.text.clone().iter().map(|l| Line::from(l.clone())).collect();
+    text.insert(0, &quot;&quot;.into());
+    text.insert(0, &quot;Type into input and hit enter to display here&quot;.dim().into());
+    text.insert(0, &quot;&quot;.into());
+    text.insert(0, format!(&quot;Render Ticker: {}&quot;, self.render_ticker).into());
+    text.insert(0, format!(&quot;App Ticker: {}&quot;, self.app_ticker).into());
+    text.insert(0, format!(&quot;Counter: {}&quot;, self.counter).into());
+    text.insert(0, &quot;&quot;.into());
+    text.insert(
+      0,
+      Line::from(vec![
+        &quot;Press &quot;.into(),
+        Span::styled(&quot;j&quot;, Style::default().fg(Color::Red)),
+        &quot; or &quot;.into(),
+        Span::styled(&quot;k&quot;, Style::default().fg(Color::Red)),
+        &quot; to &quot;.into(),
+        Span::styled(&quot;increment&quot;, Style::default().fg(Color::Yellow)),
+        &quot; or &quot;.into(),
+        Span::styled(&quot;decrement&quot;, Style::default().fg(Color::Yellow)),
+        &quot;.&quot;.into(),
+      ]),
+    );
+    text.insert(0, &quot;&quot;.into());
+
+    f.render_widget(
+      Paragraph::new(text)
+        .block(
+          Block::default()
+            .title(&quot;ratatui async template&quot;)
+            .title_alignment(Alignment::Center)
+            .borders(Borders::ALL)
+            .border_style(match self.mode {
+              Mode::Processing =&gt; Style::default().fg(Color::Yellow),
+              _ =&gt; Style::default(),
+            })
+            .border_type(BorderType::Rounded),
+        )
+        .style(Style::default().fg(Color::Cyan))
+        .alignment(Alignment::Center),
+      rects[0],
+    );
+    let width = rects[1].width.max(3) - 3; // keep 2 for borders and 1 for cursor
+    let scroll = self.input.visual_scroll(width as usize);
+    let input = Paragraph::new(self.input.value())
+      .style(match self.mode {
+        Mode::Insert =&gt; Style::default().fg(Color::Yellow),
+        _ =&gt; Style::default(),
+      })
+      .scroll((0, scroll as u16))
+      .block(Block::default().borders(Borders::ALL).title(Line::from(vec![
+        Span::raw(&quot;Enter Input Mode &quot;),
+        Span::styled(&quot;(Press &quot;, Style::default().fg(Color::DarkGray)),
+        Span::styled(&quot;/&quot;, Style::default().add_modifier(Modifier::BOLD).fg(Color::Gray)),
+        Span::styled(&quot; to start, &quot;, Style::default().fg(Color::DarkGray)),
+        Span::styled(&quot;ESC&quot;, Style::default().add_modifier(Modifier::BOLD).fg(Color::Gray)),
+        Span::styled(&quot; to finish)&quot;, Style::default().fg(Color::DarkGray)),
+      ])));
+    f.render_widget(input, rects[1]);
+    if self.mode == Mode::Insert {
+      f.set_cursor((rects[1].x + 1 + self.input.cursor() as u16).min(rects[1].x + rects[1].width - 2), rects[1].y + 1)
+    }
+
+    if self.show_help {
+      let rect = rect.inner(&amp;Margin { horizontal: 4, vertical: 2 });
+      f.render_widget(Clear, rect);
+      let block = Block::default()
+        .title(Line::from(vec![Span::styled(&quot;Key Bindings&quot;, Style::default().add_modifier(Modifier::BOLD))]))
+        .borders(Borders::ALL)
+        .border_style(Style::default().fg(Color::Yellow));
+      f.render_widget(block, rect);
+      let rows = vec![
+        Row::new(vec![&quot;j&quot;, &quot;Increment&quot;]),
+        Row::new(vec![&quot;k&quot;, &quot;Decrement&quot;]),
+        Row::new(vec![&quot;/&quot;, &quot;Enter Input&quot;]),
+        Row::new(vec![&quot;ESC&quot;, &quot;Exit Input&quot;]),
+        Row::new(vec![&quot;Enter&quot;, &quot;Submit Input&quot;]),
+        Row::new(vec![&quot;q&quot;, &quot;Quit&quot;]),
+        Row::new(vec![&quot;?&quot;, &quot;Open Help&quot;]),
+      ];
+      let table = Table::new(rows)
+        .header(Row::new(vec![&quot;Key&quot;, &quot;Action&quot;]).bottom_margin(1).style(Style::default().add_modifier(Modifier::BOLD)))
+        .widths(&amp;[Constraint::Percentage(10), Constraint::Percentage(90)])
+        .column_spacing(1);
+      f.render_widget(table, rect.inner(&amp;Margin { vertical: 4, horizontal: 2 }));
+    };
+
+    f.render_widget(
+      Block::default()
+        .title(
+          ratatui::widgets::block::Title::from(format!(
+            &quot;{:?}&quot;,
+            &amp;self.last_events.iter().map(|k| key_event_to_string(k)).collect::&lt;Vec&lt;_&gt;&gt;()
+          ))
+          .alignment(Alignment::Right),
+        )
+        .title_style(Style::default().add_modifier(Modifier::BOLD)),
+      Rect { x: rect.x + 1, y: rect.height.saturating_sub(1), width: rect.width.saturating_sub(2), height: 1 },
+    );
+
+    Ok(())
+  }
+}</code></pre>
+<p>The <code>render</code> function takes a <code>Frame</code> and draws a paragraph to display a counter as well as a text
+box input:</p>
+<p><img src="https://user-images.githubusercontent.com/1813121/254134161-477b2182-a3ee-4be9-a180-1bcdc56c8a1d.png" alt="" /></p>
+<p>The <code>Home</code> component has a couple of methods <code>increment</code> and <code>decrement</code> that we saw earlier, but
+this time additional <code>Action</code>s are sent on the <code>action_tx</code> channel to track the start and end of the
+increment.</p>
+<pre><code class="language-rust">  pub fn schedule_increment(&amp;mut self, i: usize) {
+    let tx = self.action_tx.clone().unwrap();
+    tokio::task::spawn(async move {
+      tx.send(Action::EnterProcessing).unwrap();
+      tokio::time::sleep(Duration::from_secs(5)).await;
+      tx.send(Action::Increment(i)).unwrap();
+      tx.send(Action::ExitProcessing).unwrap();
+    });
+  }
+
+  pub fn schedule_decrement(&amp;mut self, i: usize) {
+    let tx = self.action_tx.clone().unwrap();
+    tokio::task::spawn(async move {
+      tx.send(Action::EnterProcessing).unwrap();
+      tokio::time::sleep(Duration::from_secs(5)).await;
+      tx.send(Action::Decrement(i)).unwrap();
+      tx.send(Action::ExitProcessing).unwrap();
+    });
+  }</code></pre>
+<p>When a <code>Action</code> is sent on the action channel, it is received in the <code>main</code> thread in the
+<code>app.run()</code> loop which then calls the <code>dispatch</code> method with the appropriate action:</p>
+<pre><code class="language-rust">  fn dispatch(&amp;mut self, action: Action) -&gt; Option&lt;Action&gt; {
+    match action {
+      Action::Tick =&gt; self.tick(),
+      Action::ToggleShowHelp =&gt; self.show_help = !self.show_help,
+      Action::ScheduleIncrement=&gt; self.schedule_increment(1),
+      Action::ScheduleDecrement=&gt; self.schedule_decrement(1),
+      Action::Increment(i) =&gt; self.increment(i),
+      Action::Decrement(i) =&gt; self.decrement(i),
+      Action::EnterNormal =&gt; {
+        self.mode = Mode::Normal;
+      },
+      Action::EnterInsert =&gt; {
+        self.mode = Mode::Insert;
+      },
+      Action::EnterProcessing =&gt; {
+        self.mode = Mode::Processing;
+      },
+      Action::ExitProcessing =&gt; {
+        // TODO: Make this go to previous mode instead
+        self.mode = Mode::Normal;
+      },
+      _ =&gt; (),
+    }
+    None
+  }</code></pre>
+<p>This way, you can have <code>Action</code> affect multiple components by propagating the actions down all of
+them.</p>
+<p>When the <code>Mode</code> is switched to <code>Insert</code>, all events are handled off the <code>Input</code> widget from the
+excellent <a href="https://github.com/sayanarijit/tui-input"><code>tui-input</code> crate</a>.</p>
+<p><img src="https://user-images.githubusercontent.com/1813121/254444604-de8cfcfa-eeec-417a-a8b0-92a7ccb5fcb5.gif" alt="" /></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="configrs"><a class="header" href="#configrs"><code>config.rs</code></a></h1>
+<p>At the moment, our keys are hard coded into the app.</p>
+<pre><code class="language-rust {filename=&quot;components/home.rs&quot;}">impl Component for Home {
+
+  fn handle_key_events(&amp;mut self, key: KeyEvent) -&gt; Action {
+    match self.mode {
+      Mode::Normal | Mode::Processing =&gt; {
+        match key.code {
+          KeyCode::Char('q') =&gt; Action::Quit,
+          KeyCode::Char('d') if key.modifiers.contains(KeyModifiers::CONTROL) =&gt; Action::Quit,
+          KeyCode::Char('c') if key.modifiers.contains(KeyModifiers::CONTROL) =&gt; Action::Quit,
+          KeyCode::Char('z') if key.modifiers.contains(KeyModifiers::CONTROL) =&gt; Action::Suspend,
+          KeyCode::Char('?') =&gt; Action::ToggleShowHelp,
+          KeyCode::Char('j') =&gt; Action::ScheduleIncrement,
+          KeyCode::Char('k') =&gt; Action::ScheduleDecrement,
+          KeyCode::Char('/') =&gt; Action::EnterInsert,
+          _ =&gt; Action::Tick,
+        }
+      },
+      Mode::Insert =&gt; {
+        match key.code {
+          KeyCode::Esc =&gt; Action::EnterNormal,
+          KeyCode::Enter =&gt; Action::EnterNormal,
+          _ =&gt; {
+            self.input.handle_event(&amp;crossterm::event::Event::Key(key));
+            Action::Update
+          },
+        }
+      },
+    }
+  }</code></pre>
+<p>If a user wants to press <code>Up</code> and <code>Down</code> arrow key to <code>ScheduleIncrement</code> and <code>ScheduleDecrement</code>,
+the only way for them to do it is having to make changes to the source code and recompile the app.
+It would be better to provide a way for users to set up a configuration file that maps key presses
+to actions.</p>
+<p>For example, assume we want a user to be able to set up a keyevents-to-actions mapping in a
+<code>config.toml</code> file like below:</p>
+<pre><code class="language-toml">[keymap]
+&quot;q&quot; = &quot;Quit&quot;
+&quot;j&quot; = &quot;ScheduleIncrement&quot;
+&quot;k&quot; = &quot;ScheduleDecrement&quot;
+&quot;l&quot; = &quot;ToggleShowHelp&quot;
+&quot;/&quot; = &quot;EnterInsert&quot;
+&quot;ESC&quot; = &quot;EnterNormal&quot;
+&quot;Enter&quot; = &quot;EnterNormal&quot;
+&quot;Ctrl-d&quot; = &quot;Quit&quot;
+&quot;Ctrl-c&quot; = &quot;Quit&quot;
+&quot;Ctrl-z&quot; = &quot;Suspend&quot;
+</code></pre>
+<p>We can set up a <code>Config</code> struct using
+<a href="https://docs.rs/config/0.13.3/config/">the excellent <code>config</code> crate</a>:</p>
+<pre><code class="language-rust">use std::collections::HashMap;
+
+use color_eyre::eyre::Result;
+use crossterm::event::KeyEvent;
+use serde_derive::Deserialize;
+
+use crate::action::Action;
+
+#[derive(Clone, Debug, Default, Deserialize)]
+pub struct Config {
+  #[serde(default)]
+  pub keymap: KeyMap,
+}
+
+#[derive(Clone, Debug, Default, Deserialize)]
+pub struct KeyMap(pub HashMap&lt;KeyEvent, Action&gt;);
+
+impl Config {
+  pub fn new() -&gt; Result&lt;Self, config::ConfigError&gt; {
+    let mut builder = config::Config::builder();
+    builder = builder
+      .add_source(config::File::from(config_dir.join(&quot;config.toml&quot;)).format(config::FileFormat::Toml).required(false));
+    builder.build()?.try_deserialize()
+  }
+}</code></pre>
+<p>We are using <code>serde</code> to deserialize from a TOML file.</p>
+<p>Now the default <code>KeyEvent</code> serialized format is not very user friendly, so let’s implement our own
+version:</p>
+<pre><code class="language-rust">#[derive(Clone, Debug, Default)]
+pub struct KeyMap(pub HashMap&lt;KeyEvent, Action&gt;);
+
+impl&lt;'de&gt; Deserialize&lt;'de&gt; for KeyMap {
+  fn deserialize&lt;D&gt;(deserializer: D) -&gt; Result&lt;Self, D::Error&gt; where D: Deserializer&lt;'de&gt;,
+  {
+    struct KeyMapVisitor;
+    impl&lt;'de&gt; Visitor&lt;'de&gt; for KeyMapVisitor {
+      type Value = KeyMap;
+      fn visit_map&lt;M&gt;(self, mut access: M) -&gt; Result&lt;KeyMap, M::Error&gt;
+      where
+        M: MapAccess&lt;'de&gt;,
+      {
+        let mut keymap = HashMap::new();
+        while let Some((key_str, action)) = access.next_entry::&lt;String, Action&gt;()? {
+          let key_event = parse_key_event(&amp;key_str).map_err(de::Error::custom)?;
+          keymap.insert(key_event, action);
+        }
+        Ok(KeyMap(keymap))
+      }
+    }
+    deserializer.deserialize_map(KeyMapVisitor)
+  }
+}</code></pre>
+<p>Now all we need to do is implement a <code>parse_key_event</code> function.
+<a href="https://github.com/ratatui-org/async-template/blob/main/src/config.rs#L62-L138">You can check the source code for an example of this implementation</a>.</p>
+<p>With that implementation complete, we can add a <code>HashMap</code> to store a map of <code>KeyEvent</code>s and <code>Action</code>
+in the <code>Home</code> component:</p>
+<pre><code class="language-rust {filename=&quot;components/home.rs&quot;}">#[derive(Default)]
+pub struct Home {
+  ...
+  pub keymap: HashMap&lt;KeyEvent, Action&gt;,
+}</code></pre>
+<p>Now we have to create an instance of <code>Config</code> and pass the keymap to <code>Home</code>:</p>
+<pre><code class="language-rust">impl App {
+  pub fn new(tick_rate: (u64, u64)) -&gt; Result&lt;Self&gt; {
+    let h = Home::new();
+    let config = Config::new()?;
+    let h = h.keymap(config.keymap.0.clone());
+    let home = Arc::new(Mutex::new(h));
+    Ok(Self { tick_rate, home, should_quit: false, should_suspend: false, config })
+  }
+}</code></pre>
+<div id="admonition-tip" class="admonition tip">
+<div class="admonition-title">
+<p>Tip</p>
+<p><a class="admonition-anchor-link" href="07-structure.html#admonition-tip"></a></p>
+</div>
+<div>
+<p>You can create different keyevent presses to map to different actions based on the mode of the app by adding more sections into the toml configuration file.</p>
+</div>
+</div>
+<p>And in the <code>handle_key_events</code> we get the <code>Action</code> that should to be performed from the <code>HashMap</code>
+directly.</p>
+<pre><code class="language-rust">impl Component for Home {
+  fn handle_key_events(&amp;mut self, key: KeyEvent) -&gt; Action {
+    match self.mode {
+      Mode::Normal | Mode::Processing =&gt; {
+        if let Some(action) = self.keymap.get(&amp;key) {
+          *action
+        } else {
+          Action::Tick
+        }
+      },
+      Mode::Insert =&gt; {
+        match key.code {
+          KeyCode::Esc =&gt; Action::EnterNormal,
+          KeyCode::Enter =&gt; Action::EnterNormal,
+          _ =&gt; {
+            self.input.handle_event(&amp;crossterm::event::Event::Key(key));
+            Action::Update
+          },
+        }
+      },
+    }
+  }
+}</code></pre>
+<p>In the template, it is set up to handle <code>Vec&lt;KeyEvent&gt;</code> mapped to an <code>Action</code>. This allows you to
+map for example:</p>
+<ul>
+<li><code>&lt;g&gt;&lt;j&gt;</code> to <code>Action::GotoBottom</code></li>
+<li><code>&lt;g&gt;&lt;k&gt;</code> to <code>Action::GotoTop</code></li>
+</ul>
+<div id="admonition-note" class="admonition note">
+<div class="admonition-title">
+<p>Note</p>
+<p><a class="admonition-anchor-link" href="07-structure.html#admonition-note"></a></p>
+</div>
+<div>
+<p>Remember, if you add a new <code>Action</code> variant you also have to update the <code>deserialize</code> method accordingly.</p>
+</div>
+</div>
+<p>And because we are now using multiple keys as input, you have to update the <code>app.rs</code> main loop
+accordingly to handle that:</p>
+<pre><code class="language-rust">    // -- snip --
+    loop {
+      if let Some(e) = tui.next().await {
+        match e {
+          // -- snip --
+          tui::Event::Key(key) =&gt; {
+            if let Some(keymap) = self.config.keybindings.get(&amp;self.mode) {
+              // If the key is a single key action
+              if let Some(action) = keymap.get(&amp;vec![key.clone()]) {
+                log::info!(&quot;Got action: {action:?}&quot;);
+                action_tx.send(action.clone())?;
+              } else {
+                // If the key was not handled as a single key action,
+                // then consider it for multi-key combinations.
+                self.last_tick_key_events.push(key);
+
+                // Check for multi-key combinations
+                if let Some(action) = keymap.get(&amp;self.last_tick_key_events) {
+                  log::info!(&quot;Got action: {action:?}&quot;);
+                  action_tx.send(action.clone())?;
+                }
+              }
+            };
+          },
+          _ =&gt; {},
+        }
+        // -- snip --
+      }
+      while let Ok(action) = action_rx.try_recv() {
+        // -- snip --
+        for component in self.components.iter_mut() {
+          if let Some(action) = component.update(action.clone())? {
+            action_tx.send(action)?
+          };
+        }
+      }
+      // -- snip --
+    }
+    // -- snip --</code></pre>
+<p>Here’s the JSON configuration we use for the counter application:</p>
+<pre><code class="language-json">{
+  &quot;keybindings&quot;: {
+    &quot;Home&quot;: {
+      &quot;&lt;q&gt;&quot;: &quot;Quit&quot;, // Quit the application
+      &quot;&lt;j&gt;&quot;: &quot;ScheduleIncrement&quot;,
+      &quot;&lt;k&gt;&quot;: &quot;ScheduleDecrement&quot;,
+      &quot;&lt;l&gt;&quot;: &quot;ToggleShowHelp&quot;,
+      &quot;&lt;/&gt;&quot;: &quot;EnterInsert&quot;,
+      &quot;&lt;Ctrl-d&gt;&quot;: &quot;Quit&quot;, // Another way to quit
+      &quot;&lt;Ctrl-c&gt;&quot;: &quot;Quit&quot;, // Yet another way to quit
+      &quot;&lt;Ctrl-z&gt;&quot;: &quot;Suspend&quot; // Suspend the application
+    },
+  }
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="utilsrs"><a class="header" href="#utilsrs"><code>utils.rs</code></a></h1>
+<h3 id="command-line-argument-parsing-clap"><a class="header" href="#command-line-argument-parsing-clap">Command Line Argument Parsing (<code>clap</code>)</a></h3>
+<p>In this file, we define a <a href="https://docs.rs/clap/latest/clap/"><code>clap</code></a> <code>Args</code> struct.</p>
+<pre><code class="language-rust no_run noplayground">use std::path::PathBuf;
+
+use clap::Parser;
+
+use crate::utils::version;
+
+#[derive(Parser, Debug)]
+#[command(author, version = version(), about)]
+pub struct Cli {
+  #[arg(short, long, value_name = &quot;FLOAT&quot;, help = &quot;Tick rate, i.e. number of ticks per second&quot;, default_value_t = 1.0)]
+  pub tick_rate: f64,
+
+  #[arg(
+    short,
+    long,
+    value_name = &quot;FLOAT&quot;,
+    help = &quot;Frame rate, i.e. number of frames per second&quot;,
+    default_value_t = 60.0
+  )]
+  pub frame_rate: f64,
+}</code></pre>
+<p>This allows us to pass command line arguments to our terminal user interface if we need to.</p>
+<p><img src="https://user-images.githubusercontent.com/1813121/252718163-ab1945d1-7d44-4b5b-928d-1164ac99f2c9.png" alt="" /></p>
+<p>In addtion to command line arguments, we typically want the version of the command line program to
+show up on request. In the <code>clap</code> command, we pass in an argument called <code>version()</code>. This
+<code>version()</code> function (defined in <code>src/utils.rs</code>) uses a environment variable called
+<code>RATATUI_ASYNC_TEMPLATE_GIT_INFO</code> to get the version number with the git commit hash.
+<code>RATATUI_ASYNC_TEMPLATE_GIT_INFO</code> is populated in <code>./build.rs</code> when building with <code>cargo</code>, because
+of this line:</p>
+<pre><code class="language-rust">  println!(&quot;cargo:rustc-env=RATATUI_ASYNC_TEMPLATE_GIT_INFO={}&quot;, git_describe);</code></pre>
+<p><img src="https://user-images.githubusercontent.com/1813121/253160580-dc537c49-4191-4821-874a-9efc73cfe098.png" alt="" /></p>
+<p>You can configure what the version string should look like by modifying the string template code in
+<code>utils::version()</code>.</p>
+<h3 id="xdg-base-directory-specification"><a class="header" href="#xdg-base-directory-specification">XDG Base Directory Specification</a></h3>
+<p>Most command line tools have configuration files or data files that they need to store somewhere. To
+be a good citizen, you might want to consider following the XDG Base Directory Specification.</p>
+<p>This template uses <code>directories-rs</code> and <code>ProjectDirs</code>’s config and data local directories. You can
+find more information about the exact location for your operating system here:
+<a href="https://github.com/dirs-dev/directories-rs#projectdirs">https://github.com/dirs-dev/directories-rs#projectdirs</a>.</p>
+<p>This template also prints out the location when you pass in the <code>--version</code> command line argument.</p>
+<p><img src="https://user-images.githubusercontent.com/1813121/252721469-4d5ec38b-e868-46b4-b7b7-1c2c8bc496ac.png" alt="" /></p>
+<p>There are situations where you or your users may want to override where the configuration and data
+files should be located. This can be accomplished by using the environment variables
+<code>RATATUI_ASYNC_TEMPLATE_CONFIG</code> and <code>RATATUI_ASYNC_TEMPLATE_DATA</code>.</p>
+<p>The functions that calculate the config and data directories are in <code>src/utils.rs</code>. Feel free to
+modify the <code>utils::get_config_dir()</code> and <code>utils::get_data_dir()</code> functions as you see fit.</p>
+<h3 id="logging"><a class="header" href="#logging">Logging</a></h3>
+<p>The <code>utils::initialize_logging()</code> function is defined in <code>src/utils.rs</code>. The log level is decided by
+the <code>RUST_LOG</code> environment variable (default = <code>log::LevelFilter::Info</code>). In addition, the location
+of the log files are decided by the <code>RATATUI_ASYNC_TEMPLATE_DATA</code> environment variable (default =
+<code>XDG_DATA_HOME (local)</code>).</p>
+<p>I tend to use <code>.envrc</code> and <code>direnv</code> for development purposes, and I have the following in my
+<code>.envrc</code>:</p>
+<pre><code class="language-bash">export RATATUI_COUNTER_CONFIG=`pwd`/.config
+export RATATUI_COUNTER_DATA=`pwd`/.data
+export RATATUI_COUNTER_LOG_LEVEL=debug
+</code></pre>
+<p>This puts the log files in the <code>RATATUI_ASYNC_TEMPLATE_DATA</code> folder, i.e. <code>.data</code> folder in the
+current directory, and sets the log level to <code>RUST_LOG</code>, i.e. <code>debug</code> when I am prototyping and
+developing using <code>cargo run</code>.</p>
+<p><img src="https://user-images.githubusercontent.com/1813121/254093932-46d8c6fd-c572-4675-bcaf-45a36eed51ff.png" alt="Top half is a Iterm2 terminal with the TUI showing a Vertical split with tui-logger widget. Bottom half is a ITerm2 terminal showing the output of running tail -f on the log file." /></p>
+<p>Using the <code>RATATUI_ASYNC_TEMPLATE_CONFIG</code> environment variable also allows me to have configuration
+data that I can use for testing when development that doesn’t affect my local user configuration for
+the same program.</p>
+<h3 id="panic-handler"><a class="header" href="#panic-handler">Panic Handler</a></h3>
+<p>Finally, let’s discuss the <code>initialize_panic_handler()</code> function, which is also defined in
+<code>src/utils.rs</code>, and is used to define a callback when the application panics. Your application may
+panic for a number of reasons (e.g. when you call <code>.unwrap()</code> on a <code>None</code>). And when this happens,
+you want to be a good citizen and:</p>
+<ol>
+<li>provide a useful stacktrace so that they can report errors back to you.</li>
+<li>not leave the users terminal state in a botched condition, resetting it back to the way it was.</li>
+</ol>
+<p>In the screenshot below, I added a <code>None.unwrap()</code> into a function that is called on a keypress, so
+that you can see what a prettier backtrace looks like:</p>
+<p><img src="https://user-images.githubusercontent.com/1813121/266889163-2fb6b210-58aa-4519-b491-0d35d9fa2c87.png" alt="" /></p>
+<p><code>utils::initialize_panic_handler()</code> also calls <code>Tui::new().exit()</code> to reset the terminal state back
+to the way it was before the user started the TUI program. We’ll learn more about the <code>Tui</code> in the
+next section.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+    </body>
+</html>

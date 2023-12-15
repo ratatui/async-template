@@ -1,0 +1,446 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>action.rs - async-template</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="./mdbook-admonish.css">
+        <link rel="stylesheet" href="./theme/catppuccin.css">
+        <link rel="stylesheet" href="./theme/catppuccin-highlight.css">
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Home</a></li><li class="chapter-item expanded "><a href="00-structure.html"><strong aria-hidden="true">2.</strong> Tutorial</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="01-structure.html"><strong aria-hidden="true">2.1.</strong> main.rs</a></li><li class="chapter-item expanded "><a href="02-structure.html"><strong aria-hidden="true">2.2.</strong> tui.rs</a></li><li class="chapter-item expanded "><a href="03-structure.html" class="active"><strong aria-hidden="true">2.3.</strong> action.rs</a></li><li class="chapter-item expanded "><a href="04-structure.html"><strong aria-hidden="true">2.4.</strong> app.rs</a></li><li class="chapter-item expanded "><a href="05-structure.html"><strong aria-hidden="true">2.5.</strong> components.rs</a></li><li class="chapter-item expanded "><a href="06-structure.html"><strong aria-hidden="true">2.6.</strong> components/home.rs</a></li><li class="chapter-item expanded "><a href="07-structure.html"><strong aria-hidden="true">2.7.</strong> config.rs</a></li><li class="chapter-item expanded "><a href="08-structure.html"><strong aria-hidden="true">2.8.</strong> utils.rs</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="latte">Latte</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="frappe">Frappé</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="macchiato">Macchiato</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mocha">Mocha</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">async-template</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/ratatui-org/async-template" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/ratatui-org/async-template/edit/main/book/src/03-structure.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="actionrs"><a class="header" href="#actionrs"><code>action.rs</code></a></h1>
+<p>Now that we have created a <code>Tui</code> and <code>EventHandler</code>, we are also going to introduce the <code>Command</code>
+pattern.</p>
+<div id="admonition-tip" class="admonition tip">
+<div class="admonition-title">
+<p>Tip</p>
+<p><a class="admonition-anchor-link" href="#admonition-tip"></a></p>
+</div>
+<div>
+<p>The <code>Command</code> pattern is the concept of “reified method calls”.
+You can learn a lot more about this pattern from the excellent <a href="http://gameprogrammingpatterns.com/command.html">http://gameprogrammingpatterns.com</a>.</p>
+</div>
+</div>
+<p>These are also typically called <code>Action</code>s or <code>Message</code>s.</p>
+<div id="admonition-note" class="admonition note">
+<div class="admonition-title">
+<p>Note</p>
+<p><a class="admonition-anchor-link" href="#admonition-note"></a></p>
+</div>
+<div>
+<p>It should come as no surprise that building a terminal user interface using <code>ratatui</code> (i.e. an immediate mode rendering library) has a lot of similarities with game development or user interface libraries.
+For example, you’ll find these domains all have their own version of “input handling”, “event loop” and “draw” step.</p>
+<p>If you are coming to <code>ratatui</code> with a background in <code>Elm</code> or <code>React</code>, or if you are looking for a framework that extends the <code>ratatui</code> library to provide a more standard UI design paradigm, you can check out <a href="https://github.com/veeso/tui-realm/"><code>tui-realm</code></a> for a more featureful out of the box experience.</p>
+</div>
+</div>
+<pre><code class="language-rust">pub enum Action {
+  Quit,
+  Tick,
+  Increment,
+  Decrement,
+  Noop,
+}</code></pre>
+<div id="admonition-tip-1" class="admonition tip">
+<div class="admonition-title">
+<p>Tip</p>
+<p><a class="admonition-anchor-link" href="#admonition-tip-1"></a></p>
+</div>
+<div>
+<p>You can attach payloads to enums in rust.
+For example, in the following <code>Action</code> enum, <code>Increment(usize)</code> and <code>Decrement(usize)</code> have
+a <code>usize</code> payload which can be used to represent the value to add to or subtract from
+the counter as a payload.</p>
+<pre><code class="language-rust">#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum Action {
+  Quit,
+  Tick,
+  Increment(usize),
+  Decrement(usize),
+  Noop,
+}</code></pre>
+<p>Also, note that we are using <code>Noop</code> here as a variant that means “no operation”.
+You can remove <code>Noop</code> from <code>Action</code> and return <code>Option&lt;Action&gt;</code> instead of <code>Action</code>,
+using Rust’s built in <code>None</code> type to represent “no operation”.</p>
+</div>
+</div>
+<p>Let’s define a simple <code>impl App</code> such that every <code>Event</code> from the <code>EventHandler</code> is mapped to an
+<code>Action</code> from the enum.</p>
+<pre><code class="language-rust">#[derive(Default)]
+struct App {
+  counter: i64,
+  should_quit: bool,
+}
+
+impl App {
+  pub fn new() -&gt; Self {
+    Self::default()
+  }
+
+  pub async fn run(&amp;mut self) -&gt; Result&lt;()&gt; {
+    let t = Tui::new();
+    t.enter();
+    let mut events = EventHandler::new(tick_rate);
+    loop {
+      let event = events.next().await;
+      let action = self.handle_events(event);
+      self.update(action);
+      t.terminal.draw(|f| self.draw(f))?;
+      if self.should_quit {
+        break
+      }
+    };
+    t.exit();
+    Ok(())
+  }
+
+  fn handle_events(&amp;mut self, event: Option&lt;Event&gt;) -&gt; Action {
+    match event {
+      Some(Event::Quit) =&gt; Action::Quit,
+      Some(Event::AppTick) =&gt; Action::Tick,
+      Some(Event::Key(key_event)) =&gt; {
+        if let Some(key) = event {
+            match key.code {
+              KeyCode::Char('q') =&gt; Action::Quit,
+              KeyCode::Char('j') =&gt; Action::Increment,
+              KeyCode::Char('k') =&gt; Action::Decrement
+              _ =&gt; {}
+          }
+        }
+      },
+      Some(_) =&gt; Action::Noop,
+      None =&gt; Action::Noop,
+    }
+  }
+
+  fn update(&amp;mut self, action: Action) {
+    match action {
+      Action::Quit =&gt; self.should_quit = true,
+      Action::Tick =&gt; self.tick(),
+      Action::Increment =&gt; self.increment(),
+      Action::Decrement =&gt; self.decrement(),
+  }
+
+  fn increment(&amp;mut self) {
+    self.counter += 1;
+  }
+
+  fn decrement(&amp;mut self) {
+    self.counter -= 1;
+  }
+
+  fn draw(&amp;mut self, f: &amp;mut Frame&lt;'_&gt;) {
+    f.render_widget(
+      Paragraph::new(format!(
+        &quot;Press j or k to increment or decrement.\n\nCounter: {}&quot;,
+        self.counter
+      ))
+    )
+  }
+}</code></pre>
+<p>We use <code>handle_events(event) -&gt; Action</code> to take a <code>Event</code> and map it to a <code>Action</code>. We use
+<code>update(action)</code> to take an <code>Action</code> and modify the state of the app.</p>
+<p>One advantage of this approach is that we can modify <code>handle_key_events()</code> to use a key
+configuration if we’d like, so that users can define their own map from key to action.</p>
+<p>Another advantage of this is that the business logic of the <code>App</code> struct can be tested without
+having to create an instance of a <code>Tui</code> or <code>EventHandler</code>, e.g.:</p>
+<pre><code class="language-rust">mod tests {
+  #[test]
+  fn test_app() {
+    let mut app = App::new();
+    let old_counter = app.counter;
+    app.update(Action::Increment);
+    assert!(app.counter == old_counter + 1);
+  }
+}</code></pre>
+<p>In the test above, we did not create an instance of the <code>Tui</code> or the <code>EventHandler</code>, and did not
+call the <code>run</code> function, but we are still able to test the business logic of our application.
+Updating the app state on <code>Action</code>s gets us one step closer to making our application a “state
+machine”, which improves understanding and testability.</p>
+<p>If we wanted to be purist about it, we would make our <code>AppState</code> immutable, and we would have an
+<code>update</code> function like so:</p>
+<pre><code class="language-rust">fn update(app_state::AppState, action::Action) -&gt; new_app_state::State {
+  let mut state = app_state.clone();
+  state.counter += 1;
+  // ...
+  state
+}</code></pre>
+<p>In rare occasions, we may also want to choose a future action during <code>update</code>.</p>
+<pre><code class="language-rust">fn update(app_state::AppState, action::Action) -&gt; (new_app_state::State, Option&lt;action::Action&gt;) {
+  let mut state = app_state.clone();
+  state.counter += 1;
+  // ...
+  (state, Action::Tick)
+}</code></pre>
+<div id="admonition-note-1" class="admonition note">
+<div class="admonition-title">
+<p>Note</p>
+<p><a class="admonition-anchor-link" href="#admonition-note-1"></a></p>
+</div>
+<div>
+<p>In <a href="https://github.com/charmbracelet/bubbletea"><code>Charm</code>’s <code>bubbletea</code></a>, this function is called an <code>Update</code>. Here’s an example of what that might look like:</p>
+<pre><code class="language-go">func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
+    switch msg := msg.(type) {
+
+    // Is it a key press?
+    case tea.KeyMsg:
+        // These keys should exit the program.
+        case &quot;q&quot;:
+            return m, tea.Quit
+
+        case &quot;k&quot;:
+            m.counter--
+
+        case &quot;j&quot;:
+            m.counter++
+    }
+
+    // Note that we're not returning a command.
+    return m, nil
+}
+</code></pre>
+</div>
+</div>
+<p>Writing code to follow this architecture in rust (in my opinion) requires more upfront design,
+mostly because you have to make your <code>AppState</code> struct <code>Clone</code>-friendly. If I were in an exploratory
+or prototype stage of a TUI, I wouldn’t want to do that and would only be interested in refactoring
+it this way once I got a handle on the design.</p>
+<p>My workaround for this (as you saw earlier) is to make <code>update</code> a method that takes a <code>&amp;mut self</code>:</p>
+<pre><code class="language-rust">impl App {
+  fn update(&amp;mut self, action: Action) -&gt; Option&lt;Action&gt; {
+    self.counter += 1
+    None
+  }
+}</code></pre>
+<p>You are free to reorganize the code as you see fit!</p>
+<p>You can also add more actions as required. For example, here’s all the actions in the template:</p>
+<pre><code class="language-rust no_run noplayground">#[derive(Debug, Clone, PartialEq, Eq, Serialize, Display, Deserialize)]
+pub enum Action {
+  Tick,
+  Render,
+  Resize(u16, u16),
+  Suspend,
+  Resume,
+  Quit,
+  Refresh,
+  Error(String),
+  Help,
+  ToggleShowHelp,
+  ScheduleIncrement,
+  ScheduleDecrement,
+  Increment(usize),
+  Decrement(usize),
+  CompleteInput(String),
+  EnterNormal,
+  EnterInsert,
+  EnterProcessing,
+  ExitProcessing,
+  Update,
+}</code></pre>
+<div id="admonition-note-2" class="admonition note">
+<div class="admonition-title">
+<p>Note</p>
+<p><a class="admonition-anchor-link" href="#admonition-note-2"></a></p>
+</div>
+<div>
+<p>We are choosing to use <code>serde</code> for <code>Action</code> so that we can allow users to decide which key event maps to which <code>Action</code> using a file for configuration.
+This is discussed in more detail in the <a href="./08-structure.html"><code>config</code></a> section.</p>
+</div>
+</div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="02-structure.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="04-structure.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="02-structure.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="04-structure.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>
